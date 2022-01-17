@@ -7,7 +7,13 @@ public class Duke {
 
     private static String farewellMessage = "Bye";
 
+    private static String[] storedText;
+
+    private static int storedTextCount;
+
     public static void main(String[] args) throws IOException {
+        storedText = new String[100];
+        storedTextCount = 0;
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println(welcomeMessage);
@@ -18,7 +24,9 @@ public class Duke {
                 System.out.println(farewellMessage);
                 System.exit(0);
             } else {
-                System.out.println(c);
+                storedText[storedTextCount] = c;
+                storedTextCount++;
+                System.out.println("added: " + c);
             }
         }
     }
