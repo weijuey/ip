@@ -23,6 +23,10 @@ public class Duke {
             if (c.equalsIgnoreCase("bye")) {
                 System.out.println(farewellMessage);
                 System.exit(0);
+            } else if (c.equalsIgnoreCase("list")) {
+                for (int i = 1; i <= storedTextCount; i++) {
+                    System.out.println(i + ": " + storedText[i - 1]);
+                }
             } else {
                 storedText[storedTextCount] = c;
                 storedTextCount++;
