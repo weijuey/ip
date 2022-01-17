@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Duke {
@@ -6,13 +7,19 @@ public class Duke {
 
     private static String farewellMessage = "Bye";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+
+        System.out.println(welcomeMessage);
+
+        while (true) {
+            String c = input.readLine();
+            if (c == "bye") {
+                System.out.println(farewellMessage);
+                System.exit(1);
+            } else {
+                System.out.println(c);
+            }
+        }
     }
 }
