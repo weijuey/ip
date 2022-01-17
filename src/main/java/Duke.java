@@ -7,13 +7,13 @@ public class Duke {
 
     private static String farewellMessage = "Bye";
 
-    private static String[] storedText;
+    private static Task[] storedTasks;
 
-    private static int storedTextCount;
+    private static int storedTaskCount;
 
     public static void main(String[] args) throws IOException {
-        storedText = new String[100];
-        storedTextCount = 0;
+        storedTasks = new Task[100];
+        storedTaskCount = 0;
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println(welcomeMessage);
@@ -24,12 +24,12 @@ public class Duke {
                 System.out.println(farewellMessage);
                 System.exit(0);
             } else if (c.equalsIgnoreCase("list")) {
-                for (int i = 1; i <= storedTextCount; i++) {
-                    System.out.println(i + ": " + storedText[i - 1]);
+                for (int i = 1; i <= storedTaskCount; i++) {
+                    System.out.println(i + ": " + storedTasks[i - 1]);
                 }
             } else {
-                storedText[storedTextCount] = c;
-                storedTextCount++;
+                storedTasks[storedTaskCount] = new Task(c);
+                storedTaskCount++;
                 System.out.println("added: " + c);
             }
         }
