@@ -14,7 +14,7 @@ public class Duke {
 
         while (true) {
             String c = input.readLine();
-            if (c.compareTo("bye") == 0) {
+            if (c.equalsIgnoreCase("bye")) {
                 System.out.println(farewellMessage);
                 System.exit(0);
             } else {
