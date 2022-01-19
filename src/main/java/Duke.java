@@ -32,9 +32,7 @@ public class Duke {
                         }
                         break;
                     default:
-                        storedTasks[storedTaskCount] = new Task(nl);
-                        storedTaskCount++;
-                        System.out.println("added: " + nl);
+                        System.out.println("Sorry, you did not give a valid command.");
                 }
             } else {
                 String c = nl.substring(0, t).toLowerCase();
@@ -70,9 +68,7 @@ public class Duke {
                         }
                         break;
                     default:
-                        storedTasks[storedTaskCount] = new Task(nl);
-                        storedTaskCount++;
-                        System.out.println("added: " + nl);
+                        System.out.println("Sorry, you did not give a valid command.");
                 }
             }
         }
