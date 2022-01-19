@@ -20,24 +20,26 @@ public class Duke {
 
         while (true) {
             String nl = input.readLine();
-            String c;
             int t = nl.indexOf(' ');
             if (t == -1) {
-                c = nl;
-            } else {
-                c = nl.substring(0, t);
-            }
-            if (c.equalsIgnoreCase("bye")) {
-                System.out.println(farewellMessage);
-                System.exit(0);
-            } else if (c.equalsIgnoreCase("list")) {
-                for (int i = 1; i <= storedTaskCount; i++) {
-                    System.out.println(i + ": " + storedTasks[i - 1]);
+                switch (nl.toLowerCase()) {
+                    case "bye":
+                        System.out.println(farewellMessage);
+                        System.exit(0);
+                    case "list":
+                        for (int i = 1; i <= storedTaskCount; i++) {
+                            System.out.println(i + ": " + storedTasks[i - 1]);
+                        }
+                        break;
+                    default:
+                        storedTasks[storedTaskCount] = new Task(nl);
+                        storedTaskCount++;
+                        System.out.println("added: " + nl);
                 }
             } else {
-                storedTasks[storedTaskCount] = new Task(c);
+                storedTasks[storedTaskCount] = new Task(nl);
                 storedTaskCount++;
-                System.out.println("added: " + c);
+                System.out.println("added: " + nl);
             }
         }
     }
