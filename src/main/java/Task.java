@@ -19,6 +19,6 @@ public class Task {
     @Override
     public String toString() {
         char c = completed ? 'X' : ' ';
-        return String.format("[%c] ", c).concat(descriptor);
+        return String.format("[%c] %s", c, descriptor);
     }
 }
