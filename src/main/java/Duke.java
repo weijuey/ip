@@ -37,9 +37,43 @@ public class Duke {
                         System.out.println("added: " + nl);
                 }
             } else {
-                storedTasks[storedTaskCount] = new Task(nl);
-                storedTaskCount++;
-                System.out.println("added: " + nl);
+                String c = nl.substring(0, t).toLowerCase();
+                switch (c) {
+                    case "mark":
+                        try {
+                            int task = Integer.parseInt(nl.substring(t + 1)) - 1;
+                            if (task < storedTaskCount) {
+                                storedTasks[task].markDone();
+                                System.out.printf("Marked done:%n%s%n"
+                                        , storedTasks[task].toString());
+                            } else {
+                                System.out.printf("You only have %d tasks!%n",
+                                        storedTaskCount);
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("You did not provide a number!");
+                        }
+                        break;
+                    case "unmark":
+                        try {
+                            int task = Integer.parseInt(nl.substring(t + 1)) - 1;
+                            if (task < storedTaskCount) {
+                                storedTasks[task].markUndone();
+                                System.out.printf("Oops! Marked undone:%n%s%n"
+                                        , storedTasks[task].toString());
+                            } else {
+                                System.out.printf("You only have %d tasks!%n",
+                                        storedTaskCount);
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("You did not provide a number!");
+                        }
+                        break;
+                    default:
+                        storedTasks[storedTaskCount] = new Task(nl);
+                        storedTaskCount++;
+                        System.out.println("added: " + nl);
+                }
             }
         }
     }
