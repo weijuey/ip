@@ -12,6 +12,10 @@ public class Task {
         this.completed = true;
     }
 
+    public void markUndone() {
+        this.completed = false;
+    }
+
     @Override
     public String toString() {
         char c = completed ? 'X' : ' ';
