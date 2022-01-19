@@ -19,7 +19,14 @@ public class Duke {
         System.out.println(welcomeMessage);
 
         while (true) {
-            String c = input.readLine();
+            String nl = input.readLine();
+            String c;
+            int t = nl.indexOf(' ');
+            if (t == -1) {
+                c = nl;
+            } else {
+                c = nl.substring(0, t);
+            }
             if (c.equalsIgnoreCase("bye")) {
                 System.out.println(farewellMessage);
                 System.exit(0);
