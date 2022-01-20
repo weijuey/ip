@@ -1,18 +1,19 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Duke {
     private static String welcomeMessage = "Hi";
 
     private static String farewellMessage = "Bye";
 
-    private static Task[] storedTasks;
+    private static ArrayList<Task> storedTasks;
 
     private static int storedTaskCount;
 
     public static void main(String[] args) throws IOException {
-        storedTasks = new Task[100];
+        storedTasks = new ArrayList<>();
         storedTaskCount = 0;
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
@@ -28,7 +29,7 @@ public class Duke {
                         System.exit(0);
                     case "list":
                         for (int i = 1; i <= storedTaskCount; i++) {
-                            System.out.println(i + ": " + storedTasks[i - 1]);
+                            System.out.println(i + ": " + storedTasks.get(i - 1));
                         }
                         break;
                     default:
@@ -41,9 +42,9 @@ public class Duke {
                         try {
                             int task = Integer.parseInt(nl.substring(t + 1)) - 1;
                             if (task < storedTaskCount) {
-                                storedTasks[task].markDone();
+                                storedTasks.get(task).markDone();
                                 System.out.printf("Marked done:%n%s%n"
-                                        , storedTasks[task].toString());
+                                        , storedTasks.get(task).toString());
                             } else {
                                 System.out.printf("You only have %d tasks!%n",
                                         storedTaskCount);
@@ -56,9 +57,9 @@ public class Duke {
                         try {
                             int task = Integer.parseInt(nl.substring(t + 1)) - 1;
                             if (task < storedTaskCount) {
-                                storedTasks[task].markUndone();
+                                storedTasks.get(task).markUndone();
                                 System.out.printf("Oops! Marked undone:%n%s%n"
-                                        , storedTasks[task].toString());
+                                        , storedTasks.get(task).toString());
                             } else {
                                 System.out.printf("You only have %d tasks!%n",
                                         storedTaskCount);
@@ -72,10 +73,10 @@ public class Duke {
                         if (sl == -1) {
                             System.out.println("I need to know the duration of the event.");
                         } else {
-                            storedTasks[storedTaskCount] = new Event(nl.substring(t + 1, sl),
-                                    nl.substring(sl + 1));
+                            storedTasks.add(new Event(nl.substring(t + 1, sl),
+                                    nl.substring(sl + 1)));
                             System.out.printf("How nice, you have something to attend.%n%s%n",
-                                    storedTasks[storedTaskCount].toString());
+                                    storedTasks.get(storedTaskCount).toString());
                             storedTaskCount++;
                         }
                         break;
@@ -84,17 +85,17 @@ public class Duke {
                         if (slash == -1) {
                             System.out.println("I need to know the deadline.");
                         } else {
-                            storedTasks[storedTaskCount] = new Deadline(nl.substring(t + 1, slash),
-                                    nl.substring(slash + 1));
+                            storedTasks.add(new Deadline(nl.substring(t + 1, slash),
+                                    nl.substring(slash + 1)));
                             System.out.printf("That looks urgent.%n%s%n",
-                                    storedTasks[storedTaskCount].toString());
+                                    storedTasks.get(storedTaskCount).toString());
                             storedTaskCount++;
                         }
                         break;
                     case "todo":
-                        storedTasks[storedTaskCount] = new ToDo(nl.substring(t + 1));
+                        storedTasks.add(new ToDo(nl.substring(t + 1)));
                         System.out.printf("You better do that.%n%s%n",
-                                storedTasks[storedTaskCount].toString());
+                                storedTasks.get(storedTaskCount).toString());
                         storedTaskCount++;
                         break;
                     default:
