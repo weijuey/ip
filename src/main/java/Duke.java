@@ -69,19 +69,27 @@ public class Duke {
                         break;
                     case "event":
                         int sl = nl.indexOf('/');
-                        storedTasks[storedTaskCount] = new Event(nl.substring(t + 1, sl),
-                                nl.substring(sl + 1));
-                        System.out.printf("How nice, you have something to attend.%n%s%n",
-                                storedTasks[storedTaskCount].toString());
-                        storedTaskCount++;
+                        if (sl == -1) {
+                            System.out.println("I need to know the duration of the event.");
+                        } else {
+                            storedTasks[storedTaskCount] = new Event(nl.substring(t + 1, sl),
+                                    nl.substring(sl + 1));
+                            System.out.printf("How nice, you have something to attend.%n%s%n",
+                                    storedTasks[storedTaskCount].toString());
+                            storedTaskCount++;
+                        }
                         break;
                     case "deadline":
                         int slash = nl.indexOf('/');
-                        storedTasks[storedTaskCount] = new Deadline(nl.substring(t + 1, slash),
-                                nl.substring(slash + 1));
-                        System.out.printf("That looks urgent.%n%s%n",
-                                storedTasks[storedTaskCount].toString());
-                        storedTaskCount++;
+                        if (slash == -1) {
+                            System.out.println("I need to know the deadline.");
+                        } else {
+                            storedTasks[storedTaskCount] = new Deadline(nl.substring(t + 1, slash),
+                                    nl.substring(slash + 1));
+                            System.out.printf("That looks urgent.%n%s%n",
+                                    storedTasks[storedTaskCount].toString());
+                            storedTaskCount++;
+                        }
                         break;
                     case "todo":
                         storedTasks[storedTaskCount] = new ToDo(nl.substring(t + 1));
