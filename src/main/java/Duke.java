@@ -84,11 +84,15 @@ public class Duke {
                         if (sl == -1) {
                             System.out.println("I need to know the duration of the event.");
                         } else {
-                            storedTasks.add(new Event(nl.substring(t + 1, sl),
-                                    nl.substring(sl + 1)));
-                            System.out.printf("How nice, you have something to attend.%n%s%n",
-                                    storedTasks.get(storedTaskCount).toString());
-                            storedTaskCount++;
+                            String d = nl.substring(t + 1, sl);
+                            if (validDescriptor(d)) {
+                                storedTasks.add(new Event(d, nl.substring(sl + 1)));
+                                System.out.printf("How nice, you have something to attend.%n%s%n",
+                                        storedTasks.get(storedTaskCount).toString());
+                                storedTaskCount++;
+                            } else {
+                                System.out.println("Please give a valid description.");
+                            }
                         }
                         break;
                     case "deadline":
@@ -96,18 +100,27 @@ public class Duke {
                         if (slash == -1) {
                             System.out.println("I need to know the deadline.");
                         } else {
-                            storedTasks.add(new Deadline(nl.substring(t + 1, slash),
-                                    nl.substring(slash + 1)));
-                            System.out.printf("That looks urgent.%n%s%n",
-                                    storedTasks.get(storedTaskCount).toString());
-                            storedTaskCount++;
+                            String d = nl.substring(t + 1, slash);
+                            if (validDescriptor(d)) {
+                                storedTasks.add(new Deadline(d, nl.substring(slash + 1)));
+                                System.out.printf("That looks urgent.%n%s%n",
+                                        storedTasks.get(storedTaskCount).toString());
+                                storedTaskCount++;
+                            } else {
+                                System.out.println("Please give a valid description.");
+                            }
                         }
                         break;
                     case "todo":
-                        storedTasks.add(new ToDo(nl.substring(t + 1)));
-                        System.out.printf("You better do that.%n%s%n",
-                                storedTasks.get(storedTaskCount).toString());
-                        storedTaskCount++;
+                        String d = nl.substring(t + 1);
+                        if (validDescriptor(d)) {
+                            storedTasks.add(new ToDo(d));
+                            System.out.printf("You better do that.%n%s%n",
+                                    storedTasks.get(storedTaskCount).toString());
+                            storedTaskCount++;
+                        } else {
+                            System.out.println("Please give a valid description.");
+                        }
                         break;
                     default:
                         System.out.println("Sorry, you did not give a valid command.");
