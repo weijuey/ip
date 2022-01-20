@@ -1,7 +1,18 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hi
+How nice, you have something to attend.
+[E] [ ] CS2103 Lecture  (at Friday 2pm to 4pm)
+That looks urgent.
+[D] [ ] update iP  (by Thursday night)
+1. [E] [ ] CS2103 Lecture  (at Friday 2pm to 4pm)
+2. [D] [ ] update iP  (by Thursday night)
+You only have 2 tasks!
+Sorry, you did not give a valid command.
+Sorry, you did not give a valid command.
+You better do that.
+[T] [ ] read about React.js
+Marked done:
+[E] [X] CS2103 Lecture  (at Friday 2pm to 4pm)
+1. [E] [X] CS2103 Lecture  (at Friday 2pm to 4pm)
+2. [D] [ ] update iP  (by Thursday night)
+3. [T] [ ] read about React.js
+Bye
