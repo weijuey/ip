@@ -79,6 +79,22 @@ public class Duke {
                             System.out.println("You did not provide a number!");
                         }
                         break;
+                    case "delete":
+                        try {
+                            int task = Integer.parseInt(nl.substring(t + 1)) - 1;
+                            if (task < storedTaskCount) {
+                                System.out.printf("Great, we got this out of the way.%n%s%n"
+                                        , storedTasks.get(task).toString());
+                                storedTasks.remove(task);
+                                storedTaskCount--;
+                            } else {
+                                System.out.printf("You only have %d tasks!%n",
+                                        storedTaskCount);
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("You did not provide a number!");
+                        }
+                        break;
                     case "event":
                         int sl = nl.indexOf('/');
                         if (sl == -1) {
