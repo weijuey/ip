@@ -67,6 +67,17 @@ public class Duke {
                             System.out.println("You did not provide a number!");
                         }
                         break;
+                    case "event":
+                        int sl = nl.indexOf('/');
+                    case "deadline":
+                        int slash = nl.indexOf('/');
+                        break;
+                    case "todo":
+                        storedTasks[storedTaskCount] = new ToDo(nl.substring(t + 1));
+                        System.out.printf("You better do that.%n%s%n",
+                                storedTasks[storedTaskCount].toString());
+                        storedTaskCount++;
+                        break;
                     default:
                         System.out.println("Sorry, you did not give a valid command.");
                 }
