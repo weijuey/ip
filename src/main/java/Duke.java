@@ -12,6 +12,17 @@ public class Duke {
 
     private static int storedTaskCount;
 
+    private static boolean validDescriptor(String d) {
+        boolean valid = false;
+        int len = d.length();
+        int i = 0;
+        while (!valid && i < len) {
+            char c = d.charAt(i);
+            valid = valid || (c <= 122 && c >= 97) || (c <= 90 && c >= 65);
+        }
+        return valid;
+    }
+
     public static void main(String[] args) throws IOException {
         storedTasks = new ArrayList<>();
         storedTaskCount = 0;
