@@ -1,6 +1,10 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Path;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Duke {
@@ -26,6 +30,26 @@ public class Duke {
     public static void main(String[] args) throws IOException {
         storedTasks = new ArrayList<>();
         storedTaskCount = 0;
+
+        String h = System.getProperty("user.home");
+        Path path = Paths.get(h, "data");
+        if (Files.exists(path)) {
+            File d = path.toFile();
+            if (!d.mkdir()) {
+                System.out.println("Something went wrong, try again");
+                System.exit(0);
+            }
+        }
+        Path saved = Paths.get(h, "data", "saved.txt");
+        if (Files.exists(saved)) {
+            File s = saved.toFile();
+            if (s.createNewFile()) {
+                System.out.println("Something went wrong, try again");
+                System.exit(0);
+            }
+        }
+        BufferedReader savedTasks = Files.newBufferedReader(saved);
+        
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println(welcomeMessage);
