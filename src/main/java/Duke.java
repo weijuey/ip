@@ -1,6 +1,9 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Duke {
@@ -118,7 +121,7 @@ public class Duke {
                         } else {
                             String d = nl.substring(t + 1, slash);
                             if (validDescriptor(d)) {
-                                storedTasks.add(new Deadline(d, nl.substring(slash + 1)));
+                                storedTasks.add(new Deadline(d, LocalDate.now()));
                                 System.out.printf("That looks urgent.%n%s%n",
                                         storedTasks.get(storedTaskCount).toString());
                                 storedTaskCount++;
