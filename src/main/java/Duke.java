@@ -31,24 +31,48 @@ public class Duke {
         storedTasks = new ArrayList<>();
         storedTaskCount = 0;
 
-        String h = System.getProperty("user.home");
-        Path path = Paths.get(h, "data");
-        if (Files.exists(path)) {
+
+        Path path = Paths.get("data");
+        if (!Files.exists(path)) {
             File d = path.toFile();
             if (!d.mkdir()) {
                 System.out.println("Something went wrong, try again");
                 System.exit(0);
             }
         }
-        Path saved = Paths.get(h, "data", "saved.txt");
-        if (Files.exists(saved)) {
+        Path saved = Paths.get("data", "saved.txt");
+        if (!Files.exists(saved)) {
             File s = saved.toFile();
-            if (s.createNewFile()) {
+            if (!s.createNewFile()) {
                 System.out.println("Something went wrong, try again");
                 System.exit(0);
             }
         }
         BufferedReader savedTasks = Files.newBufferedReader(saved);
+        String sl = savedTasks.readLine();
+        while (sl != null) {
+            char type = sl.charAt(0);
+            int done = sl.charAt(1);
+            int split = sl.indexOf('|',2);
+            String des = sl.substring(2, split);
+            String da = sl.substring(split + 1);
+            switch (type) {
+                case 'T':
+                    storedTasks.add(new ToDo(des));
+                    break;
+                case 'D':
+                    storedTasks.add(new Deadline(des, da));
+                    break;
+                case 'E':
+                    storedTasks.add(new Event(des, da));
+                    break;
+            }
+            if (done == 1) {
+                storedTasks.get(storedTaskCount).markDone();
+            }
+            storedTaskCount++;
+            sl = savedTasks.readLine();
+        }
         
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
@@ -120,13 +144,13 @@ public class Duke {
                         }
                         break;
                     case "event":
-                        int sl = nl.indexOf('/');
-                        if (sl == -1) {
+                        int s = nl.indexOf('/');
+                        if (s == -1) {
                             System.out.println("I need to know the duration of the event.");
                         } else {
-                            String d = nl.substring(t + 1, sl);
+                            String d = nl.substring(t + 1, s);
                             if (validDescriptor(d)) {
-                                storedTasks.add(new Event(d, nl.substring(sl + 1)));
+                                storedTasks.add(new Event(d, nl.substring(s + 1)));
                                 System.out.printf("How nice, you have something to attend.%n%s%n",
                                         storedTasks.get(storedTaskCount).toString());
                                 storedTaskCount++;
