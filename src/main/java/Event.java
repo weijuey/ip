@@ -1,13 +1,17 @@
-public class Event extends Task {
-    protected String duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String descriptor, String duration) {
+public class Event extends Task {
+    protected LocalDateTime duration;
+
+    public Event(String descriptor, LocalDateTime duration) {
         super(descriptor);
         this.duration = duration;
     }
 
     @Override
     public String toString() {
-        return String.format("[E] %s (at %s)", super.toString(), duration);
+        return String.format("[E] %s (at %s)", super.toString(),
+                duration.format(DateTimeFormatter.ofPattern("hh:mma, dd MMM yyyy")));
     }
 }

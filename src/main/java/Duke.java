@@ -4,7 +4,6 @@ import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Duke {
@@ -106,14 +105,19 @@ public class Duke {
                         if (sl == -1) {
                             System.out.println("I need to know the duration of the event.");
                         } else {
-                            String d = nl.substring(t + 1, sl);
-                            if (validDescriptor(d)) {
-                                storedTasks.add(new Event(d, nl.substring(sl + 1)));
-                                System.out.printf("How nice, you have something to attend.%n%s%n",
-                                        storedTasks.get(storedTaskCount).toString());
-                                storedTaskCount++;
-                            } else {
-                                System.out.println("Please give a valid description.");
+                            String des = nl.substring(t + 1, sl);
+                            String da = nl.substring(sl + 1);
+                            try {
+                                if (validDescriptor(des)) {
+                                    storedTasks.add(new Event(des, LocalDateTime.parse(da, dateParser)));
+                                    System.out.printf("How nice, you have something to attend.%n%s%n",
+                                            storedTasks.get(storedTaskCount).toString());
+                                    storedTaskCount++;
+                                } else {
+                                    System.out.println("Please give a valid description.");
+                                }
+                            } catch (DateTimeParseException e) {
+                                System.out.println("The date provided cannot be recognised!");
                             }
                         }
                         break;
