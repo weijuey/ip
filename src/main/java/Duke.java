@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
@@ -12,7 +12,7 @@ public class Duke {
 
     private static String farewellMessage = "Bye";
 
-    private static DateTimeFormatter dateParser = DateTimeFormatter.ofPattern("ddMMyyyy");
+    private static DateTimeFormatter dateParser = DateTimeFormatter.ofPattern("HHmm ddMMyyyy");
 
     private static ArrayList<Task> storedTasks;
 
@@ -126,7 +126,7 @@ public class Duke {
                             String da = nl.substring(slash + 1);
                             try {
                                 if (validDescriptor(des)) {
-                                    storedTasks.add(new Deadline(des, LocalDate.parse(da, dateParser)));
+                                    storedTasks.add(new Deadline(des, LocalDateTime.parse(da, dateParser)));
                                     System.out.printf("That looks urgent.%n%s%n",
                                             storedTasks.get(storedTaskCount).toString());
                                     storedTaskCount++;
