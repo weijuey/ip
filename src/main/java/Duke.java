@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
@@ -10,6 +11,8 @@ public class Duke {
     private static String welcomeMessage = "Hi";
 
     private static String farewellMessage = "Bye";
+
+    private static DateTimeFormatter dateParser = DateTimeFormatter.ofPattern("ddMMyyyy");
 
     private static ArrayList<Task> storedTasks;
 
@@ -119,14 +122,19 @@ public class Duke {
                         if (slash == -1) {
                             System.out.println("I need to know the deadline.");
                         } else {
-                            String d = nl.substring(t + 1, slash);
-                            if (validDescriptor(d)) {
-                                storedTasks.add(new Deadline(d, LocalDate.now()));
-                                System.out.printf("That looks urgent.%n%s%n",
-                                        storedTasks.get(storedTaskCount).toString());
-                                storedTaskCount++;
-                            } else {
-                                System.out.println("Please give a valid description.");
+                            String des = nl.substring(t + 1, slash);
+                            String da = nl.substring(slash + 1);
+                            try {
+                                if (validDescriptor(des)) {
+                                    storedTasks.add(new Deadline(des, LocalDate.parse(da, dateParser)));
+                                    System.out.printf("That looks urgent.%n%s%n",
+                                            storedTasks.get(storedTaskCount).toString());
+                                    storedTaskCount++;
+                                } else {
+                                    System.out.println("Please give a valid description.");
+                                }
+                            } catch (DateTimeParseException e) {
+                                System.out.println("The date provided cannot be recognised!");
                             }
                         }
                         break;
