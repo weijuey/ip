@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import static java.nio.file.StandardOpenOption.APPEND;
@@ -14,6 +17,8 @@ public class Duke {
     private static String welcomeMessage = "Hi.";
 
     private static String farewellMessage = "Bye and have a good day.";
+
+    private static DateTimeFormatter dateParser = DateTimeFormatter.ofPattern("HHmm ddMMyyyy");
 
     private static ArrayList<Task> storedTasks;
 
@@ -63,10 +68,10 @@ public class Duke {
                     storedTasks.add(new ToDo(des));
                     break;
                 case 'D':
-                    storedTasks.add(new Deadline(des, da));
+                    storedTasks.add(new Deadline(des, LocalDateTime.parse(da, dateParser)));
                     break;
                 case 'E':
-                    storedTasks.add(new Event(des, da));
+                    storedTasks.add(new Event(des, LocalDateTime.parse(da, dateParser)));
                     break;
             }
             if (done == '1') {
@@ -189,18 +194,22 @@ public class Duke {
                         if (s == -1) {
                             System.out.println("I need to know the duration of the event.");
                         } else {
-                            String d = nl.substring(t + 1, s);
-                            if (validDescriptor(d)) {
-                                String givenDate = nl.substring(s + 1);
-                                storedTasks.add(new Event(d, givenDate));
-                                BufferedWriter write = Files.newBufferedWriter(saved, APPEND);
-                                write.append("E0" + d + "|" + givenDate + "\n");
-                                write.close();
-                                System.out.printf("How nice, you have something to attend.%n%s%n",
-                                        storedTasks.get(storedTaskCount).toString());
-                                storedTaskCount++;
-                            } else {
-                                System.out.println("Please give a valid description.");
+                            String des = nl.substring(t + 1, s);
+                            String da = nl.substring(s + 1);
+                            try {
+                                if (validDescriptor(des)) {
+                                    storedTasks.add(new Event(des, LocalDateTime.parse(da, dateParser)));
+                                    BufferedWriter write = Files.newBufferedWriter(saved, APPEND);
+                                    write.append("E0" + des + "|" + da + "\n");
+                                    write.close();
+                                    System.out.printf("How nice, you have something to attend.%n%s%n",
+                                            storedTasks.get(storedTaskCount).toString());
+                                    storedTaskCount++;
+                                } else {
+                                    System.out.println("Please give a valid description.");
+                                }
+                            } catch (DateTimeParseException e) {
+                                System.out.println("The date provided cannot be recognised!");
                             }
                         }
                         break;
@@ -209,18 +218,22 @@ public class Duke {
                         if (slash == -1) {
                             System.out.println("I need to know the deadline.");
                         } else {
-                            String d = nl.substring(t + 1, slash);
-                            if (validDescriptor(d)) {
-                                String givenDate = nl.substring(slash + 1);
-                                storedTasks.add(new Deadline(d, givenDate));
-                                BufferedWriter write = Files.newBufferedWriter(saved, APPEND);
-                                write.append("D0" + d + "|" + givenDate + "\n");
-                                write.close();
-                                System.out.printf("That looks urgent.%n%s%n",
-                                        storedTasks.get(storedTaskCount).toString());
-                                storedTaskCount++;
-                            } else {
-                                System.out.println("Please give a valid description.");
+                            String des = nl.substring(t + 1, slash);
+                            String da = nl.substring(slash + 1);
+                            try {
+                                if (validDescriptor(des)) {
+                                    storedTasks.add(new Deadline(des, LocalDateTime.parse(da, dateParser)));
+                                    BufferedWriter write = Files.newBufferedWriter(saved, APPEND);
+                                    write.append("D0" + des + "|" + da + "\n");
+                                    write.close();
+                                    System.out.printf("That looks urgent.%n%s%n",
+                                            storedTasks.get(storedTaskCount).toString());
+                                    storedTaskCount++;
+                                } else {
+                                    System.out.println("Please give a valid description.");
+                                }
+                            } catch (DateTimeParseException e) {
+                                System.out.println("The date provided cannot be recognised!");
                             }
                         }
                         break;
