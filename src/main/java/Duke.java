@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import static java.nio.file.StandardOpenOption.APPEND;
+
 public class Duke {
     private static String welcomeMessage = "Hi";
 
@@ -106,7 +108,7 @@ public class Duke {
                                 BufferedReader txt = Files.newBufferedReader(saved);
                                 StringBuilder newTxt = new StringBuilder();
                                 for (int i = 0; i < storedTaskCount; i++) {
-                                    char[] l = txt.readLine().toCharArray();
+                                    char[] l = txt.readLine().concat("\n").toCharArray();
                                     if (i == task) {
                                         l[1] = '1';
                                     }
@@ -134,7 +136,7 @@ public class Duke {
                                 BufferedReader txt = Files.newBufferedReader(saved);
                                 StringBuilder newTxt = new StringBuilder();
                                 for (int i = 0; i < storedTaskCount; i++) {
-                                    char[] l = txt.readLine().toCharArray();
+                                    char[] l = txt.readLine().concat("\n").toCharArray();
                                     if (i == task) {
                                         l[1] = '0';
                                     }
@@ -189,7 +191,11 @@ public class Duke {
                         } else {
                             String d = nl.substring(t + 1, s);
                             if (validDescriptor(d)) {
-                                storedTasks.add(new Event(d, nl.substring(s + 1)));
+                                String givenDate = nl.substring(s + 1);
+                                storedTasks.add(new Event(d, givenDate));
+                                BufferedWriter write = Files.newBufferedWriter(saved, APPEND);
+                                write.append("E0" + d + "|" + givenDate + "\n");
+                                write.close();
                                 System.out.printf("How nice, you have something to attend.%n%s%n",
                                         storedTasks.get(storedTaskCount).toString());
                                 storedTaskCount++;
@@ -205,7 +211,11 @@ public class Duke {
                         } else {
                             String d = nl.substring(t + 1, slash);
                             if (validDescriptor(d)) {
-                                storedTasks.add(new Deadline(d, nl.substring(slash + 1)));
+                                String givenDate = nl.substring(slash + 1);
+                                storedTasks.add(new Deadline(d, givenDate));
+                                BufferedWriter write = Files.newBufferedWriter(saved, APPEND);
+                                write.append("D0" + d + "|" + givenDate + "\n");
+                                write.close();
                                 System.out.printf("That looks urgent.%n%s%n",
                                         storedTasks.get(storedTaskCount).toString());
                                 storedTaskCount++;
@@ -218,6 +228,9 @@ public class Duke {
                         String d = nl.substring(t + 1);
                         if (validDescriptor(d)) {
                             storedTasks.add(new ToDo(d));
+                            BufferedWriter write = Files.newBufferedWriter(saved, APPEND);
+                            write.append("T0" + d + "|" + "\n");
+                            write.close();
                             System.out.printf("You better do that.%n%s%n",
                                     storedTasks.get(storedTaskCount).toString());
                             storedTaskCount++;
