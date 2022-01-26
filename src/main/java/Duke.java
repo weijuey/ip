@@ -4,9 +4,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Duke {
-    private static String welcomeMessage = "Hi";
+    private static String welcomeMessage = "Hi.";
 
-    private static String farewellMessage = "Bye";
+    private static String farewellMessage = "Bye and have a good day.";
 
     private static ArrayList<Task> storedTasks;
 
@@ -18,7 +18,7 @@ public class Duke {
         int i = 0;
         while (!valid && i < len) {
             char c = d.charAt(i);
-            valid = valid || (c <= 122 && c >= 97) || (c <= 90 && c >= 65);
+            valid = (c <= 122 && c >= 97) || (c <= 90 && c >= 65);
         }
         return valid;
     }
