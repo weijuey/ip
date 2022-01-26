@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,7 +31,6 @@ public class Duke {
     public static void main(String[] args) throws IOException {
         storedTasks = new ArrayList<>();
         storedTaskCount = 0;
-
 
         Path path = Paths.get("data");
         if (!Files.exists(path)) {
@@ -67,12 +67,13 @@ public class Duke {
                     storedTasks.add(new Event(des, da));
                     break;
             }
-            if (done == 1) {
+            if (done == '1') {
                 storedTasks.get(storedTaskCount).markDone();
             }
             storedTaskCount++;
             sl = savedTasks.readLine();
         }
+        savedTasks.close();
         
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
@@ -102,6 +103,19 @@ public class Duke {
                             int task = Integer.parseInt(nl.substring(t + 1)) - 1;
                             if (task < storedTaskCount) {
                                 storedTasks.get(task).markDone();
+                                BufferedReader txt = Files.newBufferedReader(saved);
+                                StringBuilder newTxt = new StringBuilder();
+                                for (int i = 0; i < storedTaskCount; i++) {
+                                    char[] l = txt.readLine().toCharArray();
+                                    if (i == task) {
+                                        l[1] = '1';
+                                    }
+                                    newTxt.append(l);
+                                }
+                                txt.close();
+                                BufferedWriter write = Files.newBufferedWriter(saved);
+                                write.write(newTxt.toString());
+                                write.close();
                                 System.out.printf("Marked done:%n%s%n"
                                         , storedTasks.get(task).toString());
                             } else {
@@ -117,6 +131,19 @@ public class Duke {
                             int task = Integer.parseInt(nl.substring(t + 1)) - 1;
                             if (task < storedTaskCount) {
                                 storedTasks.get(task).markUndone();
+                                BufferedReader txt = Files.newBufferedReader(saved);
+                                StringBuilder newTxt = new StringBuilder();
+                                for (int i = 0; i < storedTaskCount; i++) {
+                                    char[] l = txt.readLine().toCharArray();
+                                    if (i == task) {
+                                        l[1] = '0';
+                                    }
+                                    newTxt.append(l);
+                                }
+                                txt.close();
+                                BufferedWriter write = Files.newBufferedWriter(saved);
+                                write.write(newTxt.toString());
+                                write.close();
                                 System.out.printf("Oops! Marked undone:%n%s%n"
                                         , storedTasks.get(task).toString());
                             } else {
