@@ -158,6 +158,18 @@ public class Duke {
                         try {
                             int task = Integer.parseInt(nl.substring(t + 1)) - 1;
                             if (task < storedTaskCount) {
+                                BufferedReader txt = Files.newBufferedReader(saved);
+                                StringBuilder newTxt = new StringBuilder();
+                                for (int i = 0; i < storedTaskCount; i++) {
+                                    String l = txt.readLine();
+                                    if (i != task) {
+                                        newTxt.append(l);
+                                    }
+                                }
+                                txt.close();
+                                BufferedWriter write = Files.newBufferedWriter(saved);
+                                write.write(newTxt.toString());
+                                write.close();
                                 System.out.printf("Great, we got this out of the way.%n%s%n"
                                         , storedTasks.get(task).toString());
                                 storedTasks.remove(task);
