@@ -8,12 +8,22 @@ public class Task {
         this.completed = false;
     }
 
-    public void markDone() {
-        this.completed = true;
+    public boolean markDone() {
+        if (!this.completed) {
+            this.completed = true;
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public void markUndone() {
-        this.completed = false;
+    public boolean markUndone() {
+        if (this.completed) {
+            this.completed = false;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
