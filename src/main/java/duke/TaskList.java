@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ public class TaskList {
         lst = new ArrayList<>();
     }
 
-    public int length() {
+    public int getLength() {
         return lst.size();
     }
 

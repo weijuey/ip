@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 import java.io.BufferedReader;
 import java.io.IOException;

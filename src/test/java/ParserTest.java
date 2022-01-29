@@ -1,6 +1,6 @@
-import Duke.CommandParseException;
-import Duke.Parser;
-import Duke.UnmarkCommand;
+import duke.CommandParseException;
+import duke.Parser;
+import duke.UnmarkCommand;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

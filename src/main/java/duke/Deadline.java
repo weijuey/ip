@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,8 +10,8 @@ public class Deadline extends Task {
         super(descriptor);
         this.deadline = deadline;
     }
-    public Deadline(String descriptor, LocalDateTime deadline, boolean completed) {
-        super(descriptor, completed);
+    public Deadline(String descriptor, LocalDateTime deadline, boolean isCompleted) {
+        super(descriptor, isCompleted);
         this.deadline = deadline;
     }
 

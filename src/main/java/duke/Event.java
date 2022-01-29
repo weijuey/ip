@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,8 +11,8 @@ public class Event extends Task {
         this.duration = duration;
     }
 
-    public Event(String descriptor, LocalDateTime duration, boolean completed) {
-        super(descriptor, completed);
+    public Event(String descriptor, LocalDateTime duration, boolean isCompleted) {
+        super(descriptor, isCompleted);
         this.duration = duration;
     }
 

@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 public class DeleteCommand extends Command {
     private int index;
@@ -8,9 +8,10 @@ public class DeleteCommand extends Command {
     }
 
     public void execute(TaskList lst, Ui ui, Storage saved) {
-        if (index < lst.length()) {
+        if (index < lst.getLength()) {
             Task toDelete = lst.get(index);
             lst.deleteTask(index);
+            saved.deleteTask(index);
             ui.print("Great, we got this out of the way.\n" + toDelete.toString()
                     + "\n");
         } else {

@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,7 +15,7 @@ import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 public class Storage {
     private Path savedTaskFile;
-    private DateTimeFormatter dateParser;
+    private DateTimeFormatter dateTimeParser;
 
     public Storage() {
         Path path = Paths.get("data");
@@ -41,7 +41,7 @@ public class Storage {
         }
 
         savedTaskFile = saved;
-        dateParser = DateTimeFormatter.ofPattern("HHmm ddMMyyyy");
+        dateTimeParser = DateTimeFormatter.ofPattern("HHmm ddMMyyyy");
     }
 
     public void loadSaved(TaskList lst) throws IOException{
@@ -58,10 +58,10 @@ public class Storage {
                     lst.addTask(new ToDo(des, done == '1'));
                     break;
                 case 'D':
-                    lst.addTask(new Deadline(des, LocalDateTime.parse(da, dateParser), done == '1'));
+                    lst.addTask(new Deadline(des, LocalDateTime.parse(da, dateTimeParser), done == '1'));
                     break;
                 case 'E':
-                    lst.addTask(new Event(des, LocalDateTime.parse(da, dateParser), done == '1'));
+                    lst.addTask(new Event(des, LocalDateTime.parse(da, dateTimeParser), done == '1'));
                     break;
             }
             sl = saved.readLine();
@@ -72,17 +72,17 @@ public class Storage {
     public void toggleMark(int index) {
         try {
             BufferedReader old = Files.newBufferedReader(savedTaskFile);
-            String nl = old.readLine();
+            String newLine = old.readLine();
             StringBuilder edited = new StringBuilder();
             int i = 0;
-            while (nl != null) {
-                char[] toEdit = nl.toCharArray();
+            while (newLine != null) {
+                char[] toEdit = newLine.toCharArray();
                 if (i == index) {
                     toEdit[1] = (toEdit[1] == '0' ? '1' : '0');
                 }
                 edited.append(toEdit).append("\n");
                 i++;
-                nl = old.readLine();
+                newLine = old.readLine();
             }
             old.close();
             BufferedWriter file = Files.newBufferedWriter(savedTaskFile);
@@ -106,15 +106,15 @@ public class Storage {
     public void deleteTask(int index) {
         try {
             BufferedReader old = Files.newBufferedReader(savedTaskFile);
-            String nl = old.readLine();
+            String newLine = old.readLine();
             StringBuilder edited = new StringBuilder();
             int i = 0;
-            while (nl != null) {
+            while (newLine != null) {
                 if (i != index) {
-                    edited.append(nl).append("\n");
+                    edited.append(newLine).append("\n");
                 }
                 i++;
-                nl = old.readLine();
+                newLine = old.readLine();
             }
             old.close();
             BufferedWriter file = Files.newBufferedWriter(savedTaskFile);

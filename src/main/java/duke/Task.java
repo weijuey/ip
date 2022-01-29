@@ -1,23 +1,23 @@
-package Duke;
+package duke;
 
 public class Task {
     private String descriptor;
 
-    private boolean completed;
+    private boolean isCompleted;
 
     public Task(String descriptor) {
         this.descriptor = descriptor;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
-    public Task(String descriptor, boolean completed) {
+    public Task(String descriptor, boolean isCompleted) {
         this.descriptor = descriptor;
-        this.completed = completed;
+        this.isCompleted = isCompleted;
     }
 
     public boolean markDone() {
-        if (!this.completed) {
-            this.completed = true;
+        if (!this.isCompleted) {
+            this.isCompleted = true;
             return true;
         } else {
             return false;
@@ -25,8 +25,8 @@ public class Task {
     }
 
     public boolean markUndone() {
-        if (this.completed) {
-            this.completed = false;
+        if (this.isCompleted) {
+            this.isCompleted = false;
             return true;
         } else {
             return false;
@@ -35,7 +35,7 @@ public class Task {
 
     @Override
     public String toString() {
-        char c = completed ? 'X' : ' ';
+        char c = isCompleted ? 'X' : ' ';
         return String.format("[%c] %s", c, descriptor);
     }
 }

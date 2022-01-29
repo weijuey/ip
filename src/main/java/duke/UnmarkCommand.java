@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 public class UnmarkCommand extends Command {
     private int index;
@@ -8,7 +8,7 @@ public class UnmarkCommand extends Command {
     }
 
     public void execute(TaskList lst, Ui ui, Storage saved) {
-        if (index < lst.length()) {
+        if (index < lst.getLength()) {
             if (lst.unmark(index)) {
                 saved.toggleMark(index);
                 ui.print("Oops! Marked undone:\n" + lst.get(index) + "\n");

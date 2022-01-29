@@ -1,12 +1,12 @@
-package Duke;
+package duke;
 
 public class ToDo extends Task {
     public ToDo(String descriptor) {
         super(descriptor);
     }
 
-    public ToDo(String descriptor, boolean completed) {
-        super(descriptor, completed);
+    public ToDo(String descriptor, boolean isCompleted) {
+        super(descriptor, isCompleted);
     }
 
     @Override
