@@ -2,6 +2,10 @@ package Duke;
 
 import java.time.LocalDateTime;
 
+/**
+ * Duke command for creating an Event and adding it
+ * to current tasks.
+ */
 public class EventCommand extends Command {
     private String descriptor;
 

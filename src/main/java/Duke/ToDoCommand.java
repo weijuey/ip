@@ -1,5 +1,9 @@
-package Duke;
+package duke;
 
+/**
+ * Duke command for creating a to-do and adding it
+ * to current tasks.
+ */
 public class ToDoCommand extends Command {
     private String descriptor;
 

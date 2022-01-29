@@ -1,5 +1,9 @@
-package Duke;
+package duke;
 
+/**
+ * Duke command for marking a task in the list
+ * as complete by giving its index.
+ */
 public class MarkCommand extends Command {
     private int index;
 
@@ -8,7 +12,7 @@ public class MarkCommand extends Command {
     }
 
     public void execute(TaskList lst, Ui ui, Storage saved) {
-        if (index < lst.length()) {
+        if (index < lst.getLength()) {
             if (lst.mark(index)) {
                 saved.toggleMark(index);
                 ui.print("Marked done:\n" + lst.get(index) + "\n");
