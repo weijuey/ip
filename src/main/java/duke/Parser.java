@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class for parsing user input to find command word
+ * and arguments, if any, to create Command objects.
+ */
 public class Parser {
     private DateTimeFormatter dateTimeParser;
 
@@ -11,6 +15,14 @@ public class Parser {
         dateTimeParser = DateTimeFormatter.ofPattern("HHmm ddMMyyyy");
     }
 
+    /**
+     * Checks if the description given by user contains
+     * at least one alphabet, which is the benchmark for
+     * a valid input.
+     *
+     * @param d description given by user
+     * @return true if description is valid, false otherwise
+     */
     private static boolean validateDescriptor(String d) {
         boolean isValid = false;
         int len = d.length();
@@ -102,7 +114,11 @@ public class Parser {
                     throw new CommandParseException("Please give a valid description.",
                             line);
                 }
+            case "find":
+                String searching = line.substring(argWhitespace + 1);
+                return new FindCommand(searching);
             }
+
         }
         throw new CommandParseException("Cannot recognise command", line);
     }

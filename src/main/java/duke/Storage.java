@@ -20,11 +20,8 @@ import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 public class Storage {
     /** Path to the text file containing saved tasks */
     private Path savedTaskFile;
-<<<<<<< HEAD:src/main/java/duke/Storage.java
-=======
 
     /** Used to parse saved date and time for creating Task objects */
->>>>>>> branch-A-JavaDoc:src/main/java/Duke/Storage.java
     private DateTimeFormatter dateTimeParser;
 
     public Storage() {
