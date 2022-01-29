@@ -55,17 +55,14 @@ public class Storage {
             String da = sl.substring(split + 1);
             switch (type) {
                 case 'T':
-                    lst.addTask(new ToDo(des));
+                    lst.addTask(new ToDo(des, done == '1'));
                     break;
                 case 'D':
-                    lst.addTask(new Deadline(des, LocalDateTime.parse(da, dateParser)));
+                    lst.addTask(new Deadline(des, LocalDateTime.parse(da, dateParser), done == '1'));
                     break;
                 case 'E':
-                    lst.addTask(new Event(des, LocalDateTime.parse(da, dateParser)));
+                    lst.addTask(new Event(des, LocalDateTime.parse(da, dateParser), done == '1'));
                     break;
-            }
-            if (done == '1') {
-                lst.mark(lst.length() - 1);
             }
             sl = saved.readLine();
         }

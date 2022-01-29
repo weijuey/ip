@@ -10,6 +10,10 @@ public class Deadline extends Task {
         super(descriptor);
         this.deadline = deadline;
     }
+    public Deadline(String descriptor, LocalDateTime deadline, boolean completed) {
+        super(descriptor, completed);
+        this.deadline = deadline;
+    }
 
     @Override
     public String toString() {

@@ -11,6 +11,11 @@ public class Event extends Task {
         this.duration = duration;
     }
 
+    public Event(String descriptor, LocalDateTime duration, boolean completed) {
+        super(descriptor, completed);
+        this.duration = duration;
+    }
+
     @Override
     public String toString() {
         return String.format("[E] %s (at %s)", super.toString(),

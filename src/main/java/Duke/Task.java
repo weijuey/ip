@@ -10,6 +10,11 @@ public class Task {
         this.completed = false;
     }
 
+    public Task(String descriptor, boolean completed) {
+        this.descriptor = descriptor;
+        this.completed = completed;
+    }
+
     public boolean markDone() {
         if (!this.completed) {
             this.completed = true;
