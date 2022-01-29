@@ -33,6 +33,10 @@ public class Task {
         }
     }
 
+    public boolean matchString(String toCompare) {
+        return this.descriptor.contains(toCompare);
+    }
+
     @Override
     public String toString() {
         char c = completed ? 'X' : ' ';
