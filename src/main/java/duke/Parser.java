@@ -34,75 +34,74 @@ public class Parser {
         } else {
             String c = line.substring(0, argWhitespace).toLowerCase();
             switch (c) {
-                case "mark":
+            case "mark":
+                try {
+                    int taskIndex = Integer.parseInt(line.substring(argWhitespace + 1)) - 1;
+                    return new MarkCommand(taskIndex);
+                } catch (NumberFormatException e) {
+                    throw new CommandParseException("You did not provide a number!", line);
+                }
+            case "unmark":
+                try {
+                    int taskIndex = Integer.parseInt(line.substring(argWhitespace + 1)) - 1;
+                    return new UnmarkCommand(taskIndex);
+                } catch (NumberFormatException e) {
+                    throw new CommandParseException("You did not provide a number!", line);
+                }
+            case "delete":
+                try {
+                    int taskIndex = Integer.parseInt(line.substring(argWhitespace + 1)) - 1;
+                    return new DeleteCommand(taskIndex);
+                } catch (NumberFormatException e) {
+                    throw new CommandParseException("You did not provide a number!", line);
+                }
+            case "event":
+                int slash = line.indexOf('/');
+                if (slash == -1) {
+                    throw new CommandParseException("I need to know the duration of the event.",
+                            line);
+                } else {
+                    String des = line.substring(argWhitespace + 1, slash);
+                    String da = line.substring(slash + 1);
                     try {
-                        int taskIndex = Integer.parseInt(line.substring(argWhitespace + 1)) - 1;
-                        return new MarkCommand(taskIndex);
-                    } catch (NumberFormatException e) {
-                        throw new CommandParseException("You did not provide a number!", line);
-                    }
-                case "unmark":
-                    try {
-                        int taskIndex = Integer.parseInt(line.substring(argWhitespace + 1)) - 1;
-                        return new UnmarkCommand(taskIndex);
-                    } catch (NumberFormatException e) {
-                        throw new CommandParseException("You did not provide a number!", line);
-                    }
-                case "delete":
-                    try {
-                        int taskIndex = Integer.parseInt(line.substring(argWhitespace + 1)) - 1;
-                        return new DeleteCommand(taskIndex);
-                    } catch (NumberFormatException e) {
-                        throw new CommandParseException("You did not provide a number!", line);
-                    }
-                case "event":
-                    int slash = line.indexOf('/');
-                    if (slash == -1) {
-                        throw new CommandParseException("I need to know the duration of the event.",
-                                line);
-                    } else {
-                        String des = line.substring(argWhitespace + 1, slash);
-                        String da = line.substring(slash + 1);
-                        try {
-                            if (validateDescriptor(des)) {
-                                return new EventCommand(des, LocalDateTime.parse(da, dateTimeParser));
-                            } else {
-                                throw new CommandParseException("Please give a valid description.",
-                                        line);
-                            }
-                        } catch (DateTimeParseException e) {
-                            throw new CommandParseException("The date provided cannot be recognised!",
+                        if (validateDescriptor(des)) {
+                            return new EventCommand(des, LocalDateTime.parse(da, dateTimeParser));
+                        } else {
+                            throw new CommandParseException("Please give a valid description.",
                                     line);
                         }
-                    }
-                case "deadline":
-                    int s= line.indexOf('/');
-                    if (s == -1) {
-                        System.out.println("I need to know the deadline.");
-                    } else {
-                        String des = line.substring(argWhitespace + 1, s);
-                        String da = line.substring(s + 1);
-                        try {
-                            if (validateDescriptor(des)) {
-                                return new DeadlineCommand(des, LocalDateTime.parse(da, dateTimeParser));
-                            } else {
-                                throw new CommandParseException("Please give a valid description.",
-                                        line);
-                            }
-                        } catch (DateTimeParseException e) {
-                            throw new CommandParseException("The date provided cannot be recognised!",
-                                    line);
-                        }
-                    }
-                    break;
-                case "todo":
-                    String d = line.substring(argWhitespace + 1);
-                    if (validateDescriptor(d)) {
-                        return new ToDoCommand(d);
-                    } else {
-                        throw new CommandParseException("Please give a valid description.",
+                    } catch (DateTimeParseException e) {
+                        throw new CommandParseException("The date provided cannot be recognised!",
                                 line);
                     }
+                }
+            case "deadline":
+                int s= line.indexOf('/');
+                if (s == -1) {
+                    System.out.println("I need to know the deadline.");
+                } else {
+                    String des = line.substring(argWhitespace + 1, s);
+                    String da = line.substring(s + 1);
+                    try {
+                        if (validateDescriptor(des)) {
+                            return new DeadlineCommand(des, LocalDateTime.parse(da, dateTimeParser));
+                        } else {
+                            throw new CommandParseException("Please give a valid description.",
+                                    line);
+                        }
+                    } catch (DateTimeParseException e) {
+                        throw new CommandParseException("The date provided cannot be recognised!",
+                                line);
+                    }
+                }
+            case "todo":
+                String d = line.substring(argWhitespace + 1);
+                if (validateDescriptor(d)) {
+                    return new ToDoCommand(d);
+                } else {
+                    throw new CommandParseException("Please give a valid description.",
+                            line);
+                }
             }
         }
         throw new CommandParseException("Cannot recognise command", line);
