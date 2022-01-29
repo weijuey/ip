@@ -1,5 +1,9 @@
 package duke;
 
+/**
+ * Duke command for marking a task in the list
+ * as not complete by giving its index.
+ */
 public class UnmarkCommand extends Command {
     private int index;
 

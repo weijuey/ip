@@ -2,6 +2,12 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * Class wrapping an ArrayList that stores the tasks
+ * entered into the program. Allows changing completion
+ * status of specific stored tasks by passing its index,
+ * which can be seen via the string representation.
+ */
 public class TaskList {
     private ArrayList<Task> lst;
 

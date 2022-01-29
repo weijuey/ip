@@ -13,8 +13,18 @@ import java.time.format.DateTimeFormatter;
 import static java.nio.file.StandardOpenOption.APPEND;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
+/**
+ * Class representing the task list saved on disk.
+ * A text file is used for this purpose.
+ */
 public class Storage {
+    /** Path to the text file containing saved tasks */
     private Path savedTaskFile;
+<<<<<<< HEAD:src/main/java/duke/Storage.java
+=======
+
+    /** Used to parse saved date and time for creating Task objects */
+>>>>>>> branch-A-JavaDoc:src/main/java/Duke/Storage.java
     private DateTimeFormatter dateTimeParser;
 
     public Storage() {
@@ -44,6 +54,13 @@ public class Storage {
         dateTimeParser = DateTimeFormatter.ofPattern("HHmm ddMMyyyy");
     }
 
+    /**
+     * Fills the given TaskList with the tasks saved in the
+     * text file.
+     *
+     * @param lst task list to be filled
+     * @throws IOException if opening the file encounters an issue
+     */
     public void loadSaved(TaskList lst) throws IOException{
         BufferedReader saved = Files.newBufferedReader(savedTaskFile);
         String sl = saved.readLine();

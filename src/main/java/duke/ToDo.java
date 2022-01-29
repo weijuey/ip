@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Task representing a task with no deadline.
+ */
 public class ToDo extends Task {
     public ToDo(String descriptor) {
         super(descriptor);

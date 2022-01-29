@@ -1,7 +1,11 @@
-package duke;
+package Duke;
 
 import java.time.LocalDateTime;
 
+/**
+ * Duke command for creating an Event and adding it
+ * to current tasks.
+ */
 public class EventCommand extends Command {
     private String descriptor;
 
@@ -18,7 +22,6 @@ public class EventCommand extends Command {
         saved.addTask("E0" + descriptor + "|" + dateTime.toString());
         ui.print("How nice, you have something to attend.\n" +
                 toAdd.toString() + "\n");
-
     }
 
 }

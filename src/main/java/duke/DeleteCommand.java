@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Duke Command for deleting a task from the list.
+ */
 public class DeleteCommand extends Command {
     private int index;
 

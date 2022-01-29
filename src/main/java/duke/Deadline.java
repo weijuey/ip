@@ -3,7 +3,11 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class representing a task with a deadline.
+ */
 public class Deadline extends Task {
+    /** Deadline of the task */
     protected LocalDateTime deadline;
 
     public Deadline(String descriptor, LocalDateTime deadline) {

@@ -26,10 +26,10 @@ public class Parser {
         int argWhitespace = line.indexOf(' ');
         if (argWhitespace == -1) {
             switch (line.toLowerCase()) {
-                case "bye":
-                    return new ByeCommand();
-                case "list":
-                    return new ListCommand();
+            case "bye":
+                return new ByeCommand();
+            case "list":
+                return new ListCommand();
             }
         } else {
             String c = line.substring(0, argWhitespace).toLowerCase();

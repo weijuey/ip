@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * Class for reading user input and printing to
+ * screen to the user.
+ */
 public class Ui {
     private BufferedReader input;
 

@@ -1,5 +1,9 @@
 package duke;
 
+/**
+ * Duke command for marking a task in the list
+ * as complete by giving its index.
+ */
 public class MarkCommand extends Command {
     private int index;
 
