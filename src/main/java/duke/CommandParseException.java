@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 public class CommandParseException extends Exception {
     private String original;
