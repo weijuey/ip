@@ -3,16 +3,6 @@ package Duke;
 import java.io.IOException;
 
 public class Duke {
-    private enum Command {
-        BYE,
-        LIST,
-        MARK,
-        UNMARK,
-        DEADLINE,
-        EVENT,
-        TODO,
-        DELETE
-    }
 
     private Ui ui;
 
@@ -41,7 +31,10 @@ public class Duke {
         while (true) {
             try {
                 String nl = ui.readLine();
-                parser.parse(nl, storedTasks, savedTasks, ui);
+                Command c = parser.parse(nl);
+                c.execute(storedTasks, ui, savedTasks);
+            } catch (CommandParseException e) {
+                ui.print(e.getMessage());
             } catch (IOException e) {
                 System.out.println(e.getMessage());
                 System.exit(1);

@@ -22,18 +22,14 @@ public class Parser {
         return valid;
     }
 
-    public void parse(String line, TaskList lst, Storage saved, Ui ui) {
+    public Command parse(String line) throws CommandParseException {
         int argWs = line.indexOf(' ');
         if (argWs == -1) {
             switch (line.toLowerCase()) {
                 case "bye":
-                    ui.printFareWellMessage();
-                    System.exit(0);
+                    return new ByeCommand();
                 case "list":
-                    ui.print(lst.toString());
-                    break;
-                default:
-                    System.out.println("Sorry, you did not give a valid command.");
+                    return new ListCommand();
             }
         } else {
             String c = line.substring(0, argWs).toLowerCase();
@@ -41,74 +37,44 @@ public class Parser {
                 case "mark":
                     try {
                         int taskIndex = Integer.parseInt(line.substring(argWs + 1)) - 1;
-                        if (taskIndex < lst.length()) {
-                            if (lst.mark(taskIndex)) {
-                                saved.toggleMark(taskIndex);
-                                ui.print("Marked done:\n" + lst.get(taskIndex) + "\n");
-                            } else {
-                                ui.print("You've already done that.");
-                            }
-                        } else {
-                            ui.print("You only have " + taskIndex + " tasks!");
-                        }
+                        return new MarkCommand(taskIndex);
                     } catch (NumberFormatException e) {
-                        System.out.println("You did not provide a number!");
+                        throw new CommandParseException("You did not provide a number!", line);
                     }
-                    break;
                 case "unmark":
                     try {
                         int taskIndex = Integer.parseInt(line.substring(argWs + 1)) - 1;
-                        if (taskIndex < lst.length()) {
-                            if (lst.unmark(taskIndex)) {
-                                saved.toggleMark(taskIndex);
-                                ui.print("Oops! Marked undone:\n" + lst.get(taskIndex) + "\n");
-                            } else {
-                                ui.print("That's not done yet.");
-                            }
-                        } else {
-                            ui.print("You only have " + taskIndex + " tasks!");
-                        }
+                        return new UnmarkCommand(taskIndex);
                     } catch (NumberFormatException e) {
-                        System.out.println("You did not provide a number!");
+                        throw new CommandParseException("You did not provide a number!", line);
                     }
-                    break;
                 case "delete":
                     try {
                         int taskIndex = Integer.parseInt(line.substring(argWs + 1)) - 1;
-                        if (taskIndex < lst.length()) {
-                            Task toDelete = lst.get(taskIndex);
-                            lst.deleteTask(taskIndex);
-                            saved.deleteTask(taskIndex);
-                            ui.print("Great, we got this out of the way.\n" + toDelete.toString()
-                                    + "\n");
-                        } else {
-                            ui.print("You only have " + taskIndex + " tasks!");
-                        }
+                        return new DeleteCommand(taskIndex);
                     } catch (NumberFormatException e) {
-                        System.out.println("You did not provide a number!");
+                        throw new CommandParseException("You did not provide a number!", line);
                     }
-                    break;
                 case "event":
                     int s = line.indexOf('/');
                     if (s == -1) {
-                        System.out.println("I need to know the duration of the event.");
+                        throw new CommandParseException("I need to know the duration of the event.",
+                                line);
                     } else {
                         String des = line.substring(argWs + 1, s);
                         String da = line.substring(s + 1);
                         try {
                             if (validDescriptor(des)) {
-                                lst.addTask(new Event(des, LocalDateTime.parse(da, dateTimeParser)));
-                                saved.addTask("E0" + des + "|" + da + "\n");
-                                ui.print("How nice, you have something to attend.\n" +
-                                        lst.get(lst.length() - 1).toString() + "\n");
+                                return new EventCommand(des, LocalDateTime.parse(da, dateTimeParser));
                             } else {
-                                System.out.println("Please give a valid description.");
+                                throw new CommandParseException("Please give a valid description.",
+                                        line);
                             }
                         } catch (DateTimeParseException e) {
-                            System.out.println("The date provided cannot be recognised!");
+                            throw new CommandParseException("The date provided cannot be recognised!",
+                                    line);
                         }
                     }
-                    break;
                 case "deadline":
                     int slash = line.indexOf('/');
                     if (slash == -1) {
@@ -118,32 +84,27 @@ public class Parser {
                         String da = line.substring(slash + 1);
                         try {
                             if (validDescriptor(des)) {
-                                lst.addTask(new Deadline(des, LocalDateTime.parse(da, dateTimeParser)));
-                                saved.addTask("D0" + des + "|" + da + "\n");
-                                ui.print("That looks urgent.\n" +
-                                        lst.get(lst.length() - 1).toString() + "\n");
+                                return new DeadlineCommand(des, LocalDateTime.parse(da, dateTimeParser));
                             } else {
-                                System.out.println("Please give a valid description.");
+                                throw new CommandParseException("Please give a valid description.",
+                                        line);
                             }
                         } catch (DateTimeParseException e) {
-                            System.out.println("The date provided cannot be recognised!");
+                            throw new CommandParseException("The date provided cannot be recognised!",
+                                    line);
                         }
                     }
                     break;
                 case "todo":
                     String d = line.substring(argWs + 1);
                     if (validDescriptor(d)) {
-                        lst.addTask(new ToDo(d));
-                        saved.addTask("T0" + d + "|" + "\n");
-                        ui.print("You better do that.\n" +
-                                lst.get(lst.length() - 1).toString() + "\n");
+                        return new ToDoCommand(d);
                     } else {
-                        System.out.println("Please give a valid description.");
+                        throw new CommandParseException("Please give a valid description.",
+                                line);
                     }
-                    break;
-                default:
-                    System.out.println("Sorry, you did not give a valid command.");
             }
         }
+        throw new CommandParseException("Cannot recognise command", line);
     }
 }
