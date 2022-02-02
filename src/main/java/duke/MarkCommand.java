@@ -11,6 +11,7 @@ public class MarkCommand extends Command {
         this.index = index;
     }
 
+    @Override
     public void execute(TaskList lst, Ui ui, Storage saved) {
         if (index < lst.getLength()) {
             if (lst.mark(index)) {

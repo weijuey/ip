@@ -42,6 +42,8 @@ public class Parser {
                 return new ByeCommand();
             case "list":
                 return new ListCommand();
+            default:
+                throw new CommandParseException("Cannot recognise command", line);
             }
         } else {
             String c = line.substring(0, argWhitespace).toLowerCase();
@@ -88,9 +90,9 @@ public class Parser {
                     }
                 }
             case "deadline":
-                int s= line.indexOf('/');
+                int s = line.indexOf('/');
                 if (s == -1) {
-                    System.out.println("I need to know the deadline.");
+                    throw new CommandParseException("I need to know the deadline.", line);
                 } else {
                     String des = line.substring(argWhitespace + 1, s);
                     String da = line.substring(s + 1);
@@ -117,9 +119,9 @@ public class Parser {
             case "find":
                 String searching = line.substring(argWhitespace + 1);
                 return new FindCommand(searching);
+            default:
+                throw new CommandParseException("Cannot recognise command", line);
             }
-
         }
-        throw new CommandParseException("Cannot recognise command", line);
     }
 }

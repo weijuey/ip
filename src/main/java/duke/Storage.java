@@ -1,5 +1,8 @@
 package duke;
 
+import static java.nio.file.StandardOpenOption.APPEND;
+import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,9 +12,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import static java.nio.file.StandardOpenOption.APPEND;
-import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 /**
  * Class representing the task list saved on disk.
@@ -24,6 +24,10 @@ public class Storage {
     /** Used to parse saved date and time for creating Task objects */
     private DateTimeFormatter dateTimeParser;
 
+    /**
+     * Checks if directory and file for saved tasks exists, and
+     * creates them if they do not.
+     */
     public Storage() {
         Path path = Paths.get("data");
         if (!Files.exists(path)) {
@@ -58,25 +62,27 @@ public class Storage {
      * @param lst task list to be filled
      * @throws IOException if opening the file encounters an issue
      */
-    public void loadSaved(TaskList lst) throws IOException{
+    public void loadSaved(TaskList lst) throws IOException {
         BufferedReader saved = Files.newBufferedReader(savedTaskFile);
         String sl = saved.readLine();
         while (sl != null) {
             char type = sl.charAt(0);
             int done = sl.charAt(1);
-            int split = sl.indexOf('|',2);
+            int split = sl.indexOf('|', 2);
             String des = sl.substring(2, split);
             String da = sl.substring(split + 1);
             switch (type) {
-                case 'T':
-                    lst.addTask(new ToDo(des, done == '1'));
-                    break;
-                case 'D':
-                    lst.addTask(new Deadline(des, LocalDateTime.parse(da, dateTimeParser), done == '1'));
-                    break;
-                case 'E':
-                    lst.addTask(new Event(des, LocalDateTime.parse(da, dateTimeParser), done == '1'));
-                    break;
+            case 'T':
+                lst.addTask(new ToDo(des, done == '1'));
+                break;
+            case 'D':
+                lst.addTask(new Deadline(des, LocalDateTime.parse(da, dateTimeParser), done == '1'));
+                break;
+            case 'E':
+                lst.addTask(new Event(des, LocalDateTime.parse(da, dateTimeParser), done == '1'));
+                break;
+            default:
+                System.out.println("Unrecognised task, you may want to remove it manually.");
             }
             sl = saved.readLine();
         }

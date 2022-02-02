@@ -16,12 +16,13 @@ public class EventCommand extends Command {
         this.dateTime = dateTime;
     }
 
+    @Override
     public void execute(TaskList lst, Ui ui, Storage saved) {
         Event toAdd = new Event(descriptor, dateTime);
         lst.addTask(toAdd);
         saved.addTask("E0" + descriptor + "|" + dateTime.toString());
-        ui.print("How nice, you have something to attend.\n" +
-                toAdd.toString() + "\n");
+        ui.print("How nice, you have something to attend.\n"
+                + toAdd.toString() + "\n");
     }
 
 }

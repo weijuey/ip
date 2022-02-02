@@ -10,6 +10,7 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
+    @Override
     public void execute(TaskList lst, Ui ui, Storage saved) {
         if (index < lst.getLength()) {
             Task toDelete = lst.get(index);

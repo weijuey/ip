@@ -17,6 +17,7 @@ public class DeadlineCommand extends Command {
         this.dateTime = dateTime;
     }
 
+    @Override
     public void execute(TaskList lst, Ui ui, Storage saved) {
         Deadline toAdd = new Deadline(descriptor, dateTime);
         lst.addTask(toAdd);
