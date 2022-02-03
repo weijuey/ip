@@ -52,7 +52,7 @@ public class Storage {
         }
 
         savedTaskFile = saved;
-        dateTimeParser = DateTimeFormatter.ofPattern("HHmm ddMMyyyy");
+        dateTimeParser = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
     }
 
     /**
@@ -89,6 +89,10 @@ public class Storage {
         saved.close();
     }
 
+    /**
+     * Changes a task's done status
+     * @param index index in the tasklist of the task to be updated
+     */
     public void toggleMark(int index) {
         try {
             BufferedReader old = Files.newBufferedReader(savedTaskFile);
@@ -98,7 +102,7 @@ public class Storage {
             while (newLine != null) {
                 char[] toEdit = newLine.toCharArray();
                 if (i == index) {
-                    toEdit[1] = (toEdit[1] == '0' ? '1' : '0');
+                    toEdit[1] = (toEdit[1] == '0') ? '1' : '0';
                 }
                 edited.append(toEdit).append("\n");
                 i++;
@@ -113,6 +117,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Add a task to the save file
+     * @param task string representation of task to be added
+     */
     public void addTask(String task) {
         try {
             BufferedWriter file = Files.newBufferedWriter(savedTaskFile, APPEND);
@@ -123,6 +131,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes task from the save file
+     * @param index index in the tasklist of the task to be deleted
+     */
     public void deleteTask(int index) {
         try {
             BufferedReader old = Files.newBufferedReader(savedTaskFile);
@@ -145,6 +157,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes all saved content
+     */
     public void deleteAll() {
         try {
             BufferedWriter file = Files.newBufferedWriter(savedTaskFile, TRUNCATE_EXISTING);
