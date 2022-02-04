@@ -1,6 +1,12 @@
-package duke;
+package duke.commands;
+
+import duke.Storage;
+import duke.Task;
+import duke.TaskList;
+import duke.Ui;
 
 public class FindCommand extends Command {
+    /** String that user is searching for */
     private String searching;
 
     public FindCommand(String searching) {
@@ -13,7 +19,7 @@ public class FindCommand extends Command {
         int foundIndex = 1;
         for (int i = 0; i < lst.getLength(); i++) {
             Task currentTask = lst.get(i);
-            if (currentTask.matchString(searching)) {
+            if (currentTask.containsString(searching)) {
                 ui.print(foundIndex + ": " + currentTask.toString());
                 foundIndex++;
             }

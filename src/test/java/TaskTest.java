@@ -1,7 +1,8 @@
-import duke.Task;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import duke.Task;
 
 public class TaskTest {
     @Test

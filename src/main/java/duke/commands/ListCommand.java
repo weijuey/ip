@@ -1,4 +1,8 @@
-package duke;
+package duke.commands;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
 
 /**
  * Duke command for listing all tasks currently
