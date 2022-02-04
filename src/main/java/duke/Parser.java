@@ -4,6 +4,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+import duke.commands.DeadlineCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.EventCommand;
+import duke.commands.FindCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
+import duke.commands.TodoCommand;
+import duke.commands.UnmarkCommand;
+
+
 /**
  * Class for parsing user input to find command word
  * and arguments, if any, to create Command objects.
@@ -23,17 +35,25 @@ public class Parser {
      * @param d description given by user
      * @return true if description is valid, false otherwise
      */
-    private static boolean validateDescriptor(String d) {
+    private static boolean isValidDescriptor(String d) {
         boolean isValid = false;
         int len = d.length();
         int i = 0;
         while (!isValid && i < len) {
             char c = d.charAt(i);
             isValid = (c <= 122 && c >= 97) || (c <= 90 && c >= 65);
+            i++;
         }
         return isValid;
     }
 
+    /**
+     * Parses the given user input, finds the command word and
+     * arguments if any, and returns the matching Command
+     * @param line user input line
+     * @return Command object representing command invoked
+     * @throws CommandParseException if the line cannot be resolved to a command
+     */
     public Command parse(String line) throws CommandParseException {
         int argWhitespace = line.indexOf(' ');
         if (argWhitespace == -1) {
@@ -78,7 +98,7 @@ public class Parser {
                     String des = line.substring(argWhitespace + 1, slash);
                     String da = line.substring(slash + 1);
                     try {
-                        if (validateDescriptor(des)) {
+                        if (isValidDescriptor(des)) {
                             return new EventCommand(des, LocalDateTime.parse(da, dateTimeParser));
                         } else {
                             throw new CommandParseException("Please give a valid description.",
@@ -97,7 +117,7 @@ public class Parser {
                     String des = line.substring(argWhitespace + 1, s);
                     String da = line.substring(s + 1);
                     try {
-                        if (validateDescriptor(des)) {
+                        if (isValidDescriptor(des)) {
                             return new DeadlineCommand(des, LocalDateTime.parse(da, dateTimeParser));
                         } else {
                             throw new CommandParseException("Please give a valid description.",
@@ -110,8 +130,8 @@ public class Parser {
                 }
             case "todo":
                 String d = line.substring(argWhitespace + 1);
-                if (validateDescriptor(d)) {
-                    return new ToDoCommand(d);
+                if (isValidDescriptor(d)) {
+                    return new TodoCommand(d);
                 } else {
                     throw new CommandParseException("Please give a valid description.",
                             line);

@@ -73,7 +73,7 @@ public class Storage {
             String da = sl.substring(split + 1);
             switch (type) {
             case 'T':
-                lst.addTask(new ToDo(des, done == '1'));
+                lst.addTask(new Todo(des, done == '1'));
                 break;
             case 'D':
                 lst.addTask(new Deadline(des, LocalDateTime.parse(da, dateTimeParser), done == '1'));
@@ -90,10 +90,10 @@ public class Storage {
     }
 
     /**
-     * Changes a task's done status
+     * Changes a task's completion status
      * @param index index in the tasklist of the task to be updated
      */
-    public void toggleMark(int index) {
+    public void toggleCompleted(int index) {
         try {
             BufferedReader old = Files.newBufferedReader(savedTaskFile);
             String newLine = old.readLine();
@@ -118,7 +118,7 @@ public class Storage {
     }
 
     /**
-     * Add a task to the save file
+     * Adds a task to the save file
      * @param task string representation of task to be added
      */
     public void addTask(String task) {
@@ -133,7 +133,7 @@ public class Storage {
 
     /**
      * Deletes task from the save file
-     * @param index index in the tasklist of the task to be deleted
+     * @param index index of the task in the tasklist to be deleted
      */
     public void deleteTask(int index) {
         try {

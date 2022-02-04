@@ -10,10 +10,22 @@ public class Deadline extends Task {
     /** Deadline of the task */
     protected LocalDateTime deadline;
 
+    /**
+     * Creates Deadline object
+     * @param descriptor descriptor
+     * @param deadline task deadline
+     */
     public Deadline(String descriptor, LocalDateTime deadline) {
         super(descriptor);
         this.deadline = deadline;
     }
+
+    /**
+     * Creates Deadline Object and can specify completion
+     * @param descriptor descriptor
+     * @param deadline task deadline
+     * @param isCompleted true or false
+     */
     public Deadline(String descriptor, LocalDateTime deadline, boolean isCompleted) {
         super(descriptor, isCompleted);
         this.deadline = deadline;

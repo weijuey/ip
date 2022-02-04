@@ -11,14 +11,25 @@ public class Event extends Task {
     /** The time of the event given by user */
     protected LocalDateTime time;
 
-    public Event(String descriptor, LocalDateTime time) {
-        super(descriptor);
+    /**
+     * Creates Event object
+     * @param description description
+     * @param time time of the event
+     */
+    public Event(String description, LocalDateTime time) {
+        super(description);
         this.time = time;
     }
 
-    public Event(String descriptor, LocalDateTime duration, boolean isCompleted) {
-        super(descriptor, isCompleted);
-        this.time = duration;
+    /**
+     * Creates Event object and can specify completion
+     * @param description description
+     * @param time time of the event
+     * @param isCompleted true or false
+     */
+    public Event(String description, LocalDateTime time, boolean isCompleted) {
+        super(description, isCompleted);
+        this.time = time;
     }
 
     @Override
