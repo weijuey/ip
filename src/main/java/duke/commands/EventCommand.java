@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import duke.Event;
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
 
 /**
  * Duke command for creating an Event and adding it
@@ -29,13 +28,17 @@ public class EventCommand extends Command {
         this.dateTime = dateTime;
     }
 
+    private String savedTestFormat() {
+        return "E0" + description + "|" + dateTime.toString() + "\n";
+    }
+
     @Override
-    public void execute(TaskList lst, Ui ui, Storage saved) {
+    public String execute(TaskList lst, Storage saved) {
         Event toAdd = new Event(description, dateTime);
         lst.addTask(toAdd);
-        saved.addTask("E0" + description + "|" + dateTime.toString());
-        ui.print("How nice, you have something to attend.\n"
-                + toAdd.toString() + "\n");
+        saved.addTask(this.savedTestFormat());
+        return "How nice, you have something to attend.\n"
+                + toAdd.toString() + "\n";
     }
 
 }

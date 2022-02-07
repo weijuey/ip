@@ -60,9 +60,10 @@ public class Storage {
      * text file.
      *
      * @param lst task list to be filled
+     * @return true if file loads successfully, false otherwise
      * @throws IOException if opening the file encounters an issue
      */
-    public void loadSaved(TaskList lst) throws IOException {
+    public boolean loadSaved(TaskList lst) throws IOException {
         BufferedReader saved = Files.newBufferedReader(savedTaskFile);
         String sl = saved.readLine();
         while (sl != null) {
@@ -87,6 +88,7 @@ public class Storage {
             sl = saved.readLine();
         }
         saved.close();
+        return true;
     }
 
     /**

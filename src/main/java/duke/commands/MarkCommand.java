@@ -2,7 +2,6 @@ package duke.commands;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
 
 /**
  * Duke command for marking a task in the list
@@ -17,16 +16,18 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList lst, Ui ui, Storage saved) {
+    public String execute(TaskList lst, Storage saved) {
         if (index < lst.getLength()) {
-            if (lst.mark(index)) {
+            if (index < 0) {
+                return "Invalid index";
+            } else if (lst.mark(index)) {
                 saved.toggleCompleted(index);
-                ui.print("Marked done:\n" + lst.get(index) + "\n");
+                return "Marked done:\n" + lst.get(index) + "\n";
             } else {
-                ui.print("That's not done yet.");
+                return "That's already done.";
             }
         } else {
-            ui.print("You only have " + index + " tasks!");
+            return "You only have " + lst.getLength() + " tasks!";
         }
     }
 }

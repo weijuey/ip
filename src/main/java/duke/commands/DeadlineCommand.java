@@ -2,10 +2,7 @@ package duke.commands;
 
 import java.time.LocalDateTime;
 
-import duke.Deadline;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import duke.*;
 
 /**
  * Duke command for creating a Deadline and adding it
@@ -17,6 +14,10 @@ public class DeadlineCommand extends Command {
 
     /** The deadline given by user */
     private LocalDateTime dateTime;
+
+    private String savedTextFormat() {
+        return "D0" + description + "|" + dateTime.toString() + "\n";
+    }
 
     /**
      * Returns a DeadlineCommand object with required parameters
@@ -30,10 +31,10 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList lst, Ui ui, Storage saved) {
+    public String execute(TaskList lst, Storage saved) {
         Deadline toAdd = new Deadline(description, dateTime);
         lst.addTask(toAdd);
-        saved.addTask("D0" + description + "|" + dateTime.toString());
-        ui.print("That looks urgent.\n" + toAdd.toString() + "\n");
+        saved.addTask(this.savedTextFormat());
+        return "That looks urgent.\n" + toAdd.toString() + "\n";
     }
 }

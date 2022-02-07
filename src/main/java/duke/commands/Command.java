@@ -2,7 +2,6 @@ package duke.commands;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
 
 /**
  * Abstract class representing the commands supported by Duke.
@@ -11,5 +10,5 @@ import duke.Ui;
  * implemented under the abstract execute method by subclasses.
  */
 public abstract class Command {
-    public abstract void execute(TaskList lst, Ui ui, Storage saved);
+    public abstract String execute(TaskList lst, Storage saved);
 }

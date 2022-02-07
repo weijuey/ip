@@ -3,7 +3,6 @@ package duke.commands;
 import duke.Storage;
 import duke.TaskList;
 import duke.Todo;
-import duke.Ui;
 
 /**
  * Duke command for creating a to-do and adding it
@@ -17,11 +16,15 @@ public class TodoCommand extends Command {
         this.descriptor = descriptor;
     }
 
+    private String savedTestFormat() {
+        return "T0" + descriptor + "|\n";
+    }
+
     @Override
-    public void execute(TaskList lst, Ui ui, Storage saved) {
+    public String execute(TaskList lst, Storage saved) {
         Todo toAdd = new Todo(descriptor);
         lst.addTask(toAdd);
-        saved.addTask("T0" + descriptor + "|");
-        ui.print("You better do that.\n" + toAdd.toString() + "\n");
+        saved.addTask(this.savedTestFormat());
+        return "You better do that.\n" + toAdd.toString() + "\n";
     }
 }

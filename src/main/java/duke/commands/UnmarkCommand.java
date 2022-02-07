@@ -2,7 +2,6 @@ package duke.commands;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
 
 /**
  * Duke command for marking a task in the list
@@ -17,16 +16,18 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList lst, Ui ui, Storage saved) {
+    public String execute(TaskList lst, Storage saved) {
         if (index < lst.getLength()) {
-            if (lst.unmark(index)) {
+            if (index < 0) {
+                return "Invalid index";
+            } else if (lst.unmark(index)) {
                 saved.toggleCompleted(index);
-                ui.print("Oops! Marked undone:\n" + lst.get(index) + "\n");
+                return "Oops! Marked undone:\n" + lst.get(index) + "\n";
             } else {
-                ui.print("You've not done that yet.");
+                return "You've not done that yet.";
             }
         } else {
-            ui.print("You only have " + index + " tasks!");
+            return "You only have " + index + " tasks!";
         }
     }
 }
