@@ -9,10 +9,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -32,15 +29,20 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/hahaha.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/wahaha.png"));
 
+    /**
+     * Creates A MainWindow that will serve as the interface between the
+     * given Duke object and the user.
+     * @param duke Duke logic running with the MainWindow
+     * @param canLoad if Duke cannot load saved tasks and warns user
+     * @return MainWindow interfacing Duke and user
+     * @throws IOException if .fxml file encounter loading failure
+     */
     public static MainWindow createMainWindow(Duke duke, boolean canLoad) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Duke.class.getResource("/view/MainWindow.fxml"));
         MainWindow mw = new MainWindow();
         fxmlLoader.setRoot(mw);
         fxmlLoader.load();
         fxmlLoader.<MainWindow>getController().setDuke(duke);
-        Background backgroundColour = new Background(new BackgroundFill(Color.CYAN,
-                null, null));
-        fxmlLoader.<MainWindow>getController().setBackground(backgroundColour);
         if (!canLoad) {
             fxmlLoader.<MainWindow>getController().dialogContainer.getChildren()
                     .add(DialogBox.getDukeDialog("Saved tasks cannot be loaded, "

@@ -1,6 +1,8 @@
 package duke.commands;
 
-import duke.*;
+import duke.Storage;
+import duke.Task;
+import duke.TaskList;
 
 /**
  * Duke Command for deleting a task from the list.
