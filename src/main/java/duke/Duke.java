@@ -2,15 +2,17 @@ package duke;
 
 import java.io.IOException;
 
+import duke.commands.Command;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 /**
  * Main program of the Duke chatbot. Consists of the
  * user interface, current task list, task list saved
- * on disk, and a parser of user input.
+ * on disk, and a parser for user input.
  */
-public class Duke {
-    /** User interface that reads user input and prints to screen */
-    private Ui ui;
-
+public class Duke extends Application {
     /** Parser to make sense of user input */
     private Parser parser;
 
@@ -20,38 +22,37 @@ public class Duke {
     /** Task list saved on disk */
     private Storage savedTasks;
 
-    public Duke() {
-        ui = new Ui();
-        parser = new Parser();
-        storedTasks = new TaskList();
-        savedTasks = new Storage();
+    /** User interface that reads user input and prints to screen */
+    private MainWindow mainWindow;
+
+    @Override
+    public void start(Stage stage) {
+        this.parser = new Parser();
+        this.storedTasks = new TaskList();
+        this.savedTasks = new Storage();
+        boolean canLoad = false;
         try {
-            savedTasks.loadSaved(storedTasks);
+            canLoad = savedTasks.loadSaved(storedTasks);
         } catch (IOException e) {
-            ui.print("Can't load saved tasks, starting with empty tasklist");
             storedTasks.deleteAll();
             savedTasks.deleteAll();
         }
-        ui.printWelcomeMessage();
-    }
-
-    public void run() {
-        while (true) {
-            try {
-                String nl = ui.readLine();
-                Command c = parser.parse(nl);
-                c.execute(storedTasks, ui, savedTasks);
-            } catch (CommandParseException e) {
-                ui.print(e.getMessage());
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-                System.exit(1);
-            }
+        try {
+            this.mainWindow = MainWindow.createMainWindow(this, canLoad);
+            Scene scene = new Scene(mainWindow);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public static void main(String[] args) {
-        Duke duke = new Duke();
-        duke.run();
+    public String getResponse(String input) {
+        try {
+            Command c = parser.parse(input);
+            return c.execute(storedTasks, savedTasks);
+        } catch (CommandParseException e) {
+            return e.getMessage();
+        }
     }
 }

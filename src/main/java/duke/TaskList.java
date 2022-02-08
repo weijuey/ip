@@ -36,7 +36,7 @@ public class TaskList {
     }
 
     public boolean unmark(int index) {
-        return lst.get(index).markUndone();
+        return lst.get(index).markNotDone();
     }
 
     public Task get(int index) {
