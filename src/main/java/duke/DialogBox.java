@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
@@ -23,6 +24,14 @@ import javafx.scene.paint.Color;
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    private static final Insets userTextPadding = new Insets(0, 5, 0, 0);
+    private static final Insets dukeTextPadding = new Insets(0, 0, 0, 5);
+    private static final Background userBackground = new Background(new BackgroundFill(Color.GOLD,
+            new CornerRadii(0.8, true), new Insets(5)));
+    private static final Background dukeBackground = new Background(new BackgroundFill(Color.HOTPINK,
+            new CornerRadii(0.8, true), new Insets(5)));
+
+
     @FXML
     private Label dialog;
     @FXML
@@ -39,21 +48,18 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        dialog.setPadding(new Insets(0, 5, 0, 0));
+        dialog.setPadding(userTextPadding);
         displayPicture.setImage(img);
-        this.setBackground(new Background(new BackgroundFill(Color.GOLD, null,
-                new Insets(5))));
+        this.setBackground(userBackground);
     }
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
-
     private void flip() {
         this.setAlignment(Pos.TOP_LEFT);
-        this.dialog.setPadding(new Insets(0, 0, 0, 5));
-        this.setBackground(new Background(new BackgroundFill(Color.HOTPINK, null,
-                new Insets(5))));
+        this.dialog.setPadding(dukeTextPadding);
+        this.setBackground(dukeBackground);
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         FXCollections.reverse(tmp);
         this.getChildren().setAll(tmp);
