@@ -53,6 +53,7 @@ public class Storage {
 
         savedTaskFile = saved;
         dateTimeParser = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        assert Files.exists(saved);
     }
 
     /**
