@@ -65,6 +65,7 @@ public class Storage {
      * @throws IOException if opening the file encounters an issue
      */
     public boolean loadSaved(TaskList lst) throws IOException {
+        assert Files.exists(savedTaskFile);
         BufferedReader saved = Files.newBufferedReader(savedTaskFile);
         String sl = saved.readLine();
         while (sl != null) {
@@ -97,6 +98,7 @@ public class Storage {
      * @param index index in the tasklist of the task to be updated
      */
     public void toggleCompleted(int index) {
+        assert Files.exists(savedTaskFile);
         try {
             BufferedReader old = Files.newBufferedReader(savedTaskFile);
             String newLine = old.readLine();
@@ -116,7 +118,7 @@ public class Storage {
             file.write(edited.toString());
             file.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -125,12 +127,13 @@ public class Storage {
      * @param task string representation of task to be added
      */
     public void addTask(String task) {
+        assert Files.exists(savedTaskFile);
         try {
             BufferedWriter file = Files.newBufferedWriter(savedTaskFile, APPEND);
             file.write(task);
             file.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -139,6 +142,7 @@ public class Storage {
      * @param index index of the task in the tasklist to be deleted
      */
     public void deleteTask(int index) {
+        assert Files.exists(savedTaskFile);
         try {
             BufferedReader old = Files.newBufferedReader(savedTaskFile);
             String newLine = old.readLine();
@@ -156,7 +160,7 @@ public class Storage {
             file.write(edited.toString());
             file.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -164,6 +168,7 @@ public class Storage {
      * Deletes all saved content
      */
     public void deleteAll() {
+        assert Files.exists(savedTaskFile);
         try {
             BufferedWriter file = Files.newBufferedWriter(savedTaskFile, TRUNCATE_EXISTING);
             file.close();
