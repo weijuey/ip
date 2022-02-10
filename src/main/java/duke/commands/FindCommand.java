@@ -27,6 +27,7 @@ public class FindCommand extends Command {
         if (foundIndex == 1) {
             return "No tasks found!";
         } else {
+            assert output.toString().length() > 0;
             output.insert(0, "Looking for these?\n");
             return output.toString();
         }
