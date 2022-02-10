@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> lst;
 
+
     public TaskList() {
         lst = new ArrayList<>();
     }
@@ -24,6 +25,8 @@ public class TaskList {
     }
 
     public void deleteTask(int index) {
+        assert index >= 0;
+        assert index < lst.size();
         lst.remove(index);
     }
 
@@ -32,14 +35,20 @@ public class TaskList {
     }
 
     public boolean mark(int index) {
+        assert index >= 0;
+        assert index < lst.size();
         return lst.get(index).markDone();
     }
 
     public boolean unmark(int index) {
+        assert index >= 0;
+        assert index < lst.size();
         return lst.get(index).markNotDone();
     }
 
     public Task get(int index) {
+        assert index >= 0;
+        assert index < lst.size();
         return lst.get(index);
     }
 

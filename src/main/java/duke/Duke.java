@@ -49,6 +49,7 @@ public class Duke extends Application {
 
     public String getResponse(String input) {
         try {
+            assert input != null;
             Command c = parser.parse(input);
             return c.execute(storedTasks, savedTasks);
         } catch (CommandParseException e) {
