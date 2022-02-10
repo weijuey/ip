@@ -17,17 +17,17 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(TaskList lst, Storage saved) {
-        if (index < lst.getLength()) {
-            if (index < 0) {
-                return "Invalid index";
-            } else if (lst.mark(index)) {
-                saved.toggleCompleted(index);
-                return "Marked done:\n" + lst.get(index) + "\n";
-            } else {
-                return "That's already done.";
-            }
-        } else {
+        if (index >= lst.getLength()) {
             return "You only have " + lst.getLength() + " tasks!";
+        } else if (index < 0) {
+            return "Invalid index";
+        }
+
+        if (lst.mark(index)) {
+            saved.toggleCompleted(index);
+            return "Marked done:\n" + lst.get(index) + "\n";
+        } else {
+            return "That's already done.";
         }
     }
 }

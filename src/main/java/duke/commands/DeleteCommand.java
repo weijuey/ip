@@ -16,17 +16,16 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(TaskList lst, Storage saved) {
-        if (index < lst.getLength()) {
-            if (index < 0) {
-                return "Invalid index";
-            }
-            Task toDelete = lst.get(index);
-            lst.deleteTask(index);
-            saved.deleteTask(index);
-            return "Great, we got this out of the way.\n" + toDelete.toString()
-                    + "\n";
-        } else {
+        if (index >= lst.getLength()) {
             return "You only have " + lst.getLength() + " tasks!";
+        } else if (index < 0) {
+            return "Invalid index";
         }
+
+        Task toDelete = lst.get(index);
+        lst.deleteTask(index);
+        saved.deleteTask(index);
+        return "Great, we got this out of the way.\n" + toDelete.toString()
+                + "\n";
     }
 }

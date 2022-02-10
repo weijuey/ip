@@ -45,11 +45,13 @@ public class MainWindow extends AnchorPane {
         fxmlLoader.setRoot(mw);
         fxmlLoader.load();
         fxmlLoader.<MainWindow>getController().setDuke(duke);
+
         if (!canLoad) {
             fxmlLoader.<MainWindow>getController().dialogContainer.getChildren()
                     .add(DialogBox.getDukeDialog("Saved tasks cannot be loaded, "
                     + "starting from new file.", mw.dukeImage));
         }
+
         return mw;
     }
 

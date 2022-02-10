@@ -17,17 +17,17 @@ public class UnmarkCommand extends Command {
 
     @Override
     public String execute(TaskList lst, Storage saved) {
-        if (index < lst.getLength()) {
-            if (index < 0) {
-                return "Invalid index";
-            } else if (lst.unmark(index)) {
-                saved.toggleCompleted(index);
-                return "Oops! Marked undone:\n" + lst.get(index) + "\n";
-            } else {
-                return "You've not done that yet.";
-            }
+        if (index >= lst.getLength()) {
+            return "You only have " + lst.getLength() + " tasks!";
+        } else if (index < 0) {
+            return "Invalid index";
+        }
+
+        if (lst.unmark(index)) {
+            saved.toggleCompleted(index);
+            return "Oops! Marked undone:\n" + lst.get(index) + "\n";
         } else {
-            return "You only have " + index + " tasks!";
+            return "You've not done that yet.";
         }
     }
 }

@@ -76,7 +76,7 @@ public class Task {
 
     @Override
     public String toString() {
-        char c = isCompleted ? 'X' : ' ';
-        return String.format("[%c] %s", c, description);
+        char statusChar = isCompleted ? 'X' : ' ';
+        return String.format("[%c] %s", statusChar, description);
     }
 }
