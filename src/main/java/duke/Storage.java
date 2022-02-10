@@ -46,8 +46,7 @@ public class Storage {
                     System.exit(0);
                 }
             } catch (IOException e) {
-                System.out.println(e.getMessage());
-                System.exit(1);
+                e.printStackTrace();
             }
         }
 
@@ -92,7 +91,8 @@ public class Storage {
     }
 
     /**
-     * Changes a task's completion status
+     * Changes a task's completion status. Called by both
+     * Mark and Unmark command.
      * @param index index in the tasklist of the task to be updated
      */
     public void toggleCompleted(int index) {
@@ -115,7 +115,7 @@ public class Storage {
             file.write(edited.toString());
             file.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -129,7 +129,7 @@ public class Storage {
             file.write(task);
             file.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -155,7 +155,7 @@ public class Storage {
             file.write(edited.toString());
             file.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -167,7 +167,7 @@ public class Storage {
             BufferedWriter file = Files.newBufferedWriter(savedTaskFile, TRUNCATE_EXISTING);
             file.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             System.exit(1);
         }
     }

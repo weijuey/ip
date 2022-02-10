@@ -23,6 +23,7 @@ public class FindCommand extends Command {
                 foundIndex++;
             }
         }
+
         if (foundIndex == 1) {
             return "No tasks found!";
         } else {
