@@ -1,6 +1,7 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Class wrapping an ArrayList that stores the tasks
@@ -63,5 +64,9 @@ public class TaskList {
             }
             return res.toString();
         }
+    }
+
+    public void sort(Comparator<Task> sortBy) {
+        this.lst.sort(sortBy);
     }
 }

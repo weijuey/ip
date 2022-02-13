@@ -1,11 +1,13 @@
 package duke;
 
+import java.time.LocalDateTime;
+
 /**
  * Class representing a task the user has entered into Duke.
  * Tasks have a general description given by the user, and a
  * status indicating completion.
  */
-public class Task {
+public class Task implements Comparable<Task> {
     /** Describes the task */
     private String description;
 
@@ -72,6 +74,29 @@ public class Task {
      */
     public boolean containsString(String toCompare) {
         return this.description.contains(toCompare);
+    }
+
+    public LocalDateTime getDateTime() {
+        return null;
+    }
+
+    @Override
+    public int compareTo(Task t) {
+        LocalDateTime thisDate = this.getDateTime();
+        LocalDateTime otherDate = t.getDateTime();
+        if (thisDate == null) {
+            if (otherDate == null) {
+                return 0;
+            } else {
+                return -1;
+            }
+        } else {
+            if (otherDate == null) {
+                return 1;
+            } else {
+                return thisDate.compareTo(otherDate);
+            }
+        }
     }
 
     @Override
