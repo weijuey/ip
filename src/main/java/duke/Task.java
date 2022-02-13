@@ -88,11 +88,11 @@ public class Task implements Comparable<Task> {
             if (otherDate == null) {
                 return 0;
             } else {
-                return -1;
+                return 1;
             }
         } else {
             if (otherDate == null) {
-                return 1;
+                return -1;
             } else {
                 return thisDate.compareTo(otherDate);
             }

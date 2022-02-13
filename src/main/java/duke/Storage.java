@@ -93,6 +93,26 @@ public class Storage {
     }
 
     /**
+     * Rewrites the saved file with the new Tasklist. This method is called
+     * when the Tasklist is modified in a large operation like sorting.
+     * @param lst new Tasklist
+     */
+    public void writeToSaved(TaskList lst) {
+        assert Files.exists(savedTaskFile);
+        StringBuilder newOrder = new StringBuilder();
+        for (int i = 0; i < lst.getLength(); i++) {
+            newOrder.append(lst.get(i).savedTextFormat()).append("\n");
+        }
+        try {
+            BufferedWriter file = Files.newBufferedWriter(savedTaskFile);
+            file.write(newOrder.toString());
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Changes a task's completion status. Called by both
      * Mark and Unmark command.
      * @param index index in the tasklist of the task to be updated
