@@ -28,15 +28,11 @@ public class DeadlineCommand extends Command {
         this.dateTime = dateTime;
     }
 
-    private String savedTextFormat() {
-        return "D0" + description + "|" + dateTime.toString() + "\n";
-    }
-
     @Override
     public String execute(TaskList lst, Storage saved) {
         Deadline toAdd = new Deadline(description, dateTime);
         lst.addTask(toAdd);
-        saved.addTask(this.savedTextFormat());
+        saved.addTask(toAdd.savedTextFormat());
         return "That looks urgent.\n" + toAdd.toString() + "\n";
     }
 }

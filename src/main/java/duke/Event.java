@@ -38,6 +38,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String savedTextFormat() {
+        return "E" + super.savedTextFormat() + time.toString();
+    }
+
+    @Override
     public String toString() {
         return String.format("[E] %s (at %s)", super.toString(),
                 time.format(DateTimeFormatter.ofPattern("hh:mma, dd MMM yyyy")));

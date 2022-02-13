@@ -28,15 +28,11 @@ public class EventCommand extends Command {
         this.dateTime = dateTime;
     }
 
-    private String savedTestFormat() {
-        return "E0" + description + "|" + dateTime.toString() + "\n";
-    }
-
     @Override
     public String execute(TaskList lst, Storage saved) {
         Event toAdd = new Event(description, dateTime);
         lst.addTask(toAdd);
-        saved.addTask(this.savedTestFormat());
+        saved.addTask(toAdd.savedTextFormat());
         return "How nice, you have something to attend.\n"
                 + toAdd.toString() + "\n";
     }

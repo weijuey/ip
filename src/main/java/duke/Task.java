@@ -99,6 +99,11 @@ public class Task implements Comparable<Task> {
         }
     }
 
+    public String savedTextFormat() {
+        char completed = this.isCompleted ? '1' : '0';
+        return completed + description + "|";
+    }
+
     @Override
     public String toString() {
         char statusChar = isCompleted ? 'X' : ' ';
