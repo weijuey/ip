@@ -12,6 +12,7 @@ import duke.commands.EventCommand;
 import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
+import duke.commands.SortCommand;
 import duke.commands.TodoCommand;
 import duke.commands.UnmarkCommand;
 
@@ -138,6 +139,10 @@ public class Parser {
         case "find":
             String searching = line.substring(argWhitespace + 1);
             return new FindCommand(searching);
+        case "sort":
+            String sortBy = line.substring(argWhitespace + 1);
+            SortCommand.Order order = SortCommand.getOrder(sortBy);
+            return new SortCommand(order);
         default:
             throw new CommandParseException("Cannot recognise command", line);
         }

@@ -16,15 +16,11 @@ public class TodoCommand extends Command {
         this.descriptor = descriptor;
     }
 
-    private String savedTestFormat() {
-        return "T0" + descriptor + "|\n";
-    }
-
     @Override
     public String execute(TaskList lst, Storage saved) {
         Todo toAdd = new Todo(descriptor);
         lst.addTask(toAdd);
-        saved.addTask(this.savedTestFormat());
+        saved.addTask(toAdd.savedTextFormat());
         return "You better do that.\n" + toAdd.toString() + "\n";
     }
 }

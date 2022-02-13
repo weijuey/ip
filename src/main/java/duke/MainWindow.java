@@ -15,6 +15,8 @@ import javafx.scene.layout.VBox;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private static String welcomeMessage = "Wahaha! I've arrived!";
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -24,7 +26,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private static String welcomeMessage = "Wahaha! I've arrived!";
 
     private Duke duke;
 
@@ -55,6 +56,9 @@ public class MainWindow extends AnchorPane {
         return mw;
     }
 
+    /**
+     * Startup of main window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

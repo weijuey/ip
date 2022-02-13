@@ -32,6 +32,16 @@ public class Deadline extends Task {
     }
 
     @Override
+    public LocalDateTime getDateTime() {
+        return this.deadline;
+    }
+
+    @Override
+    public String savedTextFormat() {
+        return "D" + super.savedTextFormat() + deadline.toString();
+    }
+
+    @Override
     public String toString() {
         return String.format("[D] %s (by %s)", super.toString(),
                 deadline.format(DateTimeFormatter.ofPattern("hh:mma, dd MMM yyyy")));
