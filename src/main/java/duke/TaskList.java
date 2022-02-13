@@ -25,6 +25,10 @@ public class TaskList {
         lst.add(t);
     }
 
+    /**
+     * Deletes task at index given.
+     * @param index of task
+     */
     public void deleteTask(int index) {
         assert index >= 0;
         assert index < lst.size();
@@ -35,12 +39,22 @@ public class TaskList {
         lst.clear();
     }
 
+    /**
+     * Marks the task at given index as completed.
+     * @param index of task
+     * @return true if task is successfully changed to completed, false otherwise
+     */
     public boolean mark(int index) {
         assert index >= 0;
         assert index < lst.size();
         return lst.get(index).markDone();
     }
 
+    /**
+     * Marks the task at given index as incomplete.
+     * @param index of task
+     * @return true if task is successfully changed to incomplete, false otherwise
+     */
     public boolean unmark(int index) {
         assert index >= 0;
         assert index < lst.size();

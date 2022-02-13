@@ -99,6 +99,11 @@ public class Task implements Comparable<Task> {
         }
     }
 
+    /**
+     * Returns a string formatted for saving to the local
+     * save file.
+     * @return string in saved text format
+     */
     public String savedTextFormat() {
         char completed = this.isCompleted ? '1' : '0';
         return completed + description + "|";
