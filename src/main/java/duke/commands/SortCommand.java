@@ -49,8 +49,9 @@ public class SortCommand extends Command {
     };
 
     public enum Order {
-        CATERGORY,
-        CHRONO
+        TYPE,
+        DATE,
+        UNRECOGNISED
     }
 
     private Order order;
@@ -60,26 +61,39 @@ public class SortCommand extends Command {
     }
 
     public static Order getOrder(String cmdWord) {
-        if (cmdWord.equalsIgnoreCase("date")) {
-            return Order.CHRONO;
-        } else if (cmdWord.equalsIgnoreCase("type")) {
-            return Order.CATERGORY;
+        if (cmdWord.equalsIgnoreCase("DATE")) {
+            return Order.DATE;
+        } else if (cmdWord.equalsIgnoreCase("TYPE")) {
+            return Order.TYPE;
         } else {
-            return null;
+            return Order.UNRECOGNISED;
         }
+    }
+
+    public static String getValidOrders() {
+        StringBuilder output = new StringBuilder();
+        for (Order o : Order.values()) {
+            if (o == Order.UNRECOGNISED) {
+                continue;
+            }
+            output.append("- ").append(o).append("\n");
+        }
+        return output.toString();
     }
 
     @Override
     public String execute(TaskList lst, Storage saved) {
         switch (this.order) {
-        case CATERGORY:
+        case TYPE:
             lst.sort(categoricalSort);
             break;
-        case CHRONO:
+        case DATE:
             lst.sort(chronoSort);
             break;
+        case UNRECOGNISED:
+            return "Unrecognised order! Try:\n" + getValidOrders();
         default:
-            return "Unrecognised order";
+            return "Something went wrong!";
         }
         saved.writeToSaved(lst);
         return "Done!\n" + lst.toString();

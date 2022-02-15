@@ -140,7 +140,7 @@ public class Parser {
             String searching = line.substring(argWhitespace + 1);
             return new FindCommand(searching);
         case "sort":
-            String sortBy = line.substring(argWhitespace + 1);
+            String sortBy = line.substring(argWhitespace + 1).toUpperCase();
             SortCommand.Order order = SortCommand.getOrder(sortBy);
             return new SortCommand(order);
         default:
