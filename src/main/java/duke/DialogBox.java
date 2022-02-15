@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -17,6 +18,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 /**
  * An example of a custom control using FXML.
@@ -27,9 +29,12 @@ public class DialogBox extends HBox {
     private static final Insets userTextPadding = new Insets(0, 5, 0, 0);
     private static final Insets dukeTextPadding = new Insets(0, 0, 0, 5);
     private static final Background userBackground = new Background(new BackgroundFill(Color.GOLD,
-            new CornerRadii(0.8, true), new Insets(5)));
+            new CornerRadii(0.8, true), new Insets(3)));
     private static final Background dukeBackground = new Background(new BackgroundFill(Color.HOTPINK,
-            new CornerRadii(0.8, true), new Insets(5)));
+            new CornerRadii(0.8, true), new Insets(3)));
+    private static final double profileCircleX = 22;
+    private static final double profileCircleY = 20;
+    private static final double profileCircleRadius = 20;
 
 
     @FXML
@@ -48,8 +53,9 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        dialog.setPadding(userTextPadding);
         displayPicture.setImage(img);
+        displayPicture.setClip(new Circle(profileCircleX, profileCircleY, profileCircleRadius));
+        dialog.setPadding(userTextPadding);
         this.setBackground(userBackground);
     }
 
@@ -58,11 +64,11 @@ public class DialogBox extends HBox {
      */
     private void flip() {
         this.setAlignment(Pos.TOP_LEFT);
+        this.setMinHeight(200);
+        this.setPrefHeight(200);
         this.dialog.setPadding(dukeTextPadding);
         this.setBackground(dukeBackground);
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        FXCollections.reverse(tmp);
-        this.getChildren().setAll(tmp);
+        this.dialog.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
