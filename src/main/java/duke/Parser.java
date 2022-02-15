@@ -107,7 +107,8 @@ public class Parser {
                 return new EventCommand(eventDescription,
                         LocalDateTime.parse(eventDate, dateTimeParser));
             } catch (DateTimeParseException e) {
-                throw new CommandParseException("The date provided cannot be recognised!",
+                throw new CommandParseException("The date provided cannot be recognised! "
+                        + "Use HHMM DDMMYYYY",
                         line);
             }
         case "deadline":
@@ -126,7 +127,8 @@ public class Parser {
                 return new DeadlineCommand(deadlineDescription,
                         LocalDateTime.parse(deadlineDate, dateTimeParser));
             } catch (DateTimeParseException e) {
-                throw new CommandParseException("The date provided cannot be recognised!",
+                throw new CommandParseException("The date provided cannot be recognised! "
+                        + "Use HHMM DDMMYYYY",
                         line);
             }
         case "todo":
