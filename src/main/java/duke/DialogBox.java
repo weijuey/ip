@@ -2,14 +2,11 @@ package duke;
 
 import java.io.IOException;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,7 +29,7 @@ public class DialogBox extends HBox {
             new CornerRadii(0.8, true), new Insets(3)));
     private static final Background dukeBackground = new Background(new BackgroundFill(Color.HOTPINK,
             new CornerRadii(0.8, true), new Insets(3)));
-    private static final double profileCircleX = 22;
+    private static final double profileCircleX = 28;
     private static final double profileCircleY = 20;
     private static final double profileCircleRadius = 20;
 

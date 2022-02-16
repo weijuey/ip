@@ -13,6 +13,7 @@ import javafx.stage.Stage;
  * on disk, and a parser for user input.
  */
 public class Duke extends Application {
+    private static String appName = "Ume";
     /** Parser to make sense of user input */
     private Parser parser;
 
@@ -41,6 +42,7 @@ public class Duke extends Application {
             this.mainWindow = MainWindow.createMainWindow(this, canLoad);
             Scene scene = new Scene(mainWindow);
             stage.setScene(scene);
+            stage.setTitle(appName);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
