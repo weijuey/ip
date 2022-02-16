@@ -12,6 +12,8 @@ Tell Ume what tasks you have, and she will keep them in mind.
 
 Ume lets you check tasks off your list, delete them, sort by date and time if any, and so on.
 
+:warning: Tasks are saved locally in a text file that you can access. Avoid modifying the saved tasks to a format that Ume doesn't recognise.
+
 ## Usage
 
 ### `todo`, `event`, `deadline` - Create tasks

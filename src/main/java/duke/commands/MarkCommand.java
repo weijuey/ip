@@ -27,7 +27,7 @@ public class MarkCommand extends Command {
             saved.toggleCompleted(index);
             return "Marked done:\n" + lst.get(index) + "\n";
         } else {
-            return "That's already done.";
+            return "That's already done! Don't double do it.";
         }
     }
 }

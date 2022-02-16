@@ -70,7 +70,7 @@ public class TaskList {
     @Override
     public String toString() {
         if (lst.size() == 0) {
-            return "You are free.";
+            return "You are free! Go play!";
         } else {
             StringBuilder res = new StringBuilder();
             for (int i = 1; i <= lst.size(); i++) {
